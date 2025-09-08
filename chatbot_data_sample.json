@@ -1,0 +1,72 @@
+{
+  "users": [
+    {
+      "id": "user_6759a1b2c3d4e5f6",
+      "name": "John Doe",
+      "email": "john.doe@example.com",
+      "mobile": "+1-555-123-4567",
+      "created_at": "2024-01-15 10:30:00",
+      "last_login": "2024-01-20 14:45:00"
+    },
+    {
+      "id": "user_6759a1b2c3d4e5f7",
+      "name": "Jane Smith",
+      "email": "jane.smith@example.com",
+      "mobile": "+1-555-987-6543",
+      "created_at": "2024-01-18 09:15:00",
+      "last_login": "2024-01-22 16:20:00"
+    }
+  ],
+  "conversations": [
+    {
+      "user_id": "user_6759a1b2c3d4e5f6",
+      "messages": [
+        {
+          "id": "msg_6759a1b2c3d4e5f8",
+          "sender": "user",
+          "message": "Hi, I need help with transaction coordination",
+          "timestamp": "2024-01-15 10:35:00"
+        },
+        {
+          "id": "msg_6759a1b2c3d4e5f9",
+          "sender": "bot",
+          "message": "Hello John! I'd be happy to help you with transaction coordination. I offer two plans:<br><br>💼 <strong>Base Plan: $350 per transaction</strong><br>• Contract timeline tracking<br>• Digital calendar & milestone alerts<br>• Document assistance<br><br>🌟 <strong>Pro Plan: $450 per transaction</strong><br>• Everything in Base Plan<br>• Weekly stakeholder reports<br>• Client care services<br><br>Which plan interests you most?",
+          "timestamp": "2024-01-15 10:36:15"
+        },
+        {
+          "id": "msg_6759a1b2c3d4e5fa",
+          "sender": "user",
+          "message": "Tell me more about the Pro Plan",
+          "timestamp": "2024-01-15 10:38:00"
+        },
+        {
+          "id": "msg_6759a1b2c3d4e5fb",
+          "sender": "bot",
+          "message": "Great choice! The Pro Plan is our most popular option. Here's what makes it special:<br><br>🌟 <strong>Pro Plan Features ($450):</strong><br>• Everything in Base Plan<br>• Weekly cadence reports (Mon-Thu structured updates)<br>• Client care with personalized welcome letters<br>• Weekly buyer/seller status updates<br>• Utility request assistance<br>• Closing day preparation support<br><br>Most agents find the Pro Plan worth every penny for the client care alone! It keeps your clients informed and happy throughout the process.<br><br>Would you like to get started with our New Partner Special?",
+          "timestamp": "2024-01-15 10:39:30"
+        }
+      ],
+      "created_at": "2024-01-15 10:35:00",
+      "updated_at": "2024-01-15 10:39:30"
+    },
+    {
+      "user_id": "user_6759a1b2c3d4e5f7",
+      "messages": [
+        {
+          "id": "msg_6759a1b2c3d4e5fc",
+          "sender": "user",
+          "message": "Do you offer mobile notary services?",
+          "timestamp": "2024-01-18 09:20:00"
+        },
+        {
+          "id": "msg_6759a1b2c3d4e5fd",
+          "sender": "bot",
+          "message": "Absolutely! I come to you for your convenience:<br><br>🚗 <strong>Mobile Service Locations:</strong><br>• Your home<br>• Your office<br>• Hospitals and care facilities<br>• Coffee shops or libraries<br>• Any safe, quiet location<br><br>📅 <strong>Flexible Scheduling:</strong><br>• Same-day appointments often available<br>• Evening and weekend appointments<br>• Emergency notarization services<br><br>💰 <strong>Travel is included</strong> in my service fee for most local areas<br><br>Ready to schedule? Call me at 954-872-8141!",
+          "timestamp": "2024-01-18 09:21:45"
+        }
+      ],
+      "created_at": "2024-01-18 09:20:00",
+      "updated_at": "2024-01-18 09:21:45"
+    }
+  ]
+}
