@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indigo Road Realty</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        .playfair { font-family: 'Playfair Display', serif; }
+        .inter { font-family: 'Inter', sans-serif; }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+        }
+        
+        .hexagon {
+            width: 120px;
+            height: 104px;
+            position: relative;
+            margin: 52px 0;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+        }
+        
+        .hexagon-border {
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            border: 2px solid white;
+        }
+        
+        .signature-font {
+            font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+            font-style: italic;
+            font-weight: normal;
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-link:hover {
+            color: #d4af37;
+            transition: all 0.3s ease;
+        }
+        
+        .hexagon-btn {
+            width: 120px;
+            height: 104px;
+            position: relative;
+            margin: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hexagon-btn:hover {
+            background: rgba(212, 175, 55, 0.9);
+            transform: scale(1.05);
+        }
+        
+        .hexagon-btn.active {
+            background: rgba(139, 69, 19, 0.9);
+        }
+        
+        .hexagon-btn.active .hexagon-text {
+            color: white;
+        }
+        
+        .hexagon-text {
+            text-align: center;
+            font-size: 11px;
+            font-weight: bold;
+            line-height: 1.2;
+            color: #333;
+        }
+        
+        .agent-photo-container {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            background-image: url('https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center left;
+            background-repeat: no-repeat;
+        }
+        
+        .content-overlay {
+            position: relative;
+            z-index: 10;
+        }
+        
+        @media (max-width: 768px) {
+            .agent-photo-container {
+                position: relative;
+                width: 100%;
+                height: 300px;
+                margin-top: 2rem;
+            }
+            
+            .hexagon-btn {
+                width: 100px;
+                height: 87px;
+            }
+            
+            .signature-font {
+                font-size: 3rem !important;
+            }
+        }
+    </style>
+</head>
+<body class="inter overflow-x-hidden">
+    <!-- Navigation -->
+    <nav class="absolute top-0 left-0 right-0 z-50 px-4 lg:px-8 py-6">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-8">
+                <!-- Logo -->
+                <div class="text-white">
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 border-2 border-white hexagon-border flex items-center justify-center mr-3">
+                            <span class="text-lg font-bold">IR</span>
+                        </div>
+                        <div>
+                            <h1 class="text-xl font-bold tracking-wider leading-tight">INDIGO</h1>
+                            <h2 class="text-xl font-bold tracking-wider leading-tight">ROAD</h2>
+                            <p class="text-sm tracking-widest font-light">REALTY</p>
+                            <p class="text-xs tracking-widest opacity-80">BY EGYPT SHERROD</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <div class="hidden lg:flex items-center space-x-6 text-white text-sm font-medium tracking-wide">
+                <a href="#" class="nav-link hover:text-yellow-400">PROPERTIES</a>
+                <a href="#" class="nav-link hover:text-yellow-400">BUYING</a>
+                <a href="#" class="nav-link hover:text-yellow-400">SELLING</a>
+                <a href="#" class="nav-link hover:text-yellow-400">OUR COMPANY</a>
+                <a href="#" class="nav-link hover:text-yellow-400">RESOURCES</a>
+                <a href="#" class="nav-link hover:text-yellow-400">CONTACT US</a>
+                <button class="bg-rose-300 text-gray-800 px-6 py-2 rounded-full hover:bg-rose-400 transition-all font-medium">
+                    SIGN UP
+                </button>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button class="lg:hidden text-white text-2xl" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="lg:hidden hidden mt-4 glass-effect rounded-lg p-6">
+            <div class="flex flex-col space-y-4 text-white">
+                <a href="#" class="nav-link">PROPERTIES</a>
+                <a href="#" class="nav-link">BUYING</a>
+                <a href="#" class="nav-link">SELLING</a>
+                <a href="#" class="nav-link">OUR COMPANY</a>
+                <a href="#" class="nav-link">RESOURCES</a>
+                <a href="#" class="nav-link">CONTACT US</a>
+                <button class="bg-rose-300 text-gray-800 px-6 py-2 rounded-full mt-4 text-left">
+                    SIGN UP
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Social Media Icons -->
+    <div class="fixed right-4 top-1/2 transform -translate-y-1/2 z-40 hidden lg:flex flex-col space-y-4">
+        <a href="#" class="text-white text-lg hover:text-yellow-400 transition-colors">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+        <a href="#" class="text-white text-lg hover:text-yellow-400 transition-colors">
+            <i class="fab fa-twitter"></i>
+        </a>
+        <a href="#" class="text-white text-lg hover:text-yellow-400 transition-colors">
+            <i class="fab fa-linkedin-in"></i>
+        </a>
+        <a href="#" class="text-white text-lg hover:text-yellow-400 transition-colors">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <div class="text-white text-xs transform rotate-90 mt-8 origin-center">
+            <span class="tracking-widest whitespace-nowrap">FOLLOW US</span>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="hero-bg relative">
+        <!-- Agent Photo Container -->
+        <div class="agent-photo-container hidden lg:block"></div>
+        
+        <!-- Hero Content -->
+        <div class="content-overlay min-h-screen flex items-center">
+            <div class="max-w-7xl mx-auto px-4 lg:px-8 w-full">
+                <div class="grid lg:grid-cols-2 gap-8 items-center min-h-screen">
+                    <!-- Left Content -->
+                    <div class="text-white space-y-8 lg:pr-8">
+                        <div class="space-y-6">
+                            <p class="text-xs tracking-widest uppercase opacity-90 font-medium">GUIDING YOUR JOURNEY HOME</p>
+                            
+                            <!-- Main Heading -->
+                            <div class="space-y-2">
+                                <h1 class="playfair text-4xl lg:text-5xl font-semibold leading-tight">
+                                    Welcome to<br>
+                                    <span class="text-yellow-400">Indigo Road</span>
+                                </h1>
+                            </div>
+                            
+                            <!-- Hexagon Action Buttons -->
+                            <div class="flex flex-wrap gap-2 my-12">
+                                <div class="hexagon-btn" onclick="searchHomes()">
+                                    <div class="hexagon-text">
+                                        <div>SEARCH FOR</div>
+                                        <div>MY HOME</div>
+                                    </div>
+                                </div>
+                                <div class="hexagon-btn active" onclick="sellHome()">
+                                    <div class="hexagon-text">
+                                        <div>SELL</div>
+                                        <div>MY HOME</div>
+                                    </div>
+                                </div>
+                                <div class="hexagon-btn" onclick="scheduleCall()">
+                                    <div class="hexagon-text">
+                                        <div>SCHEDULE</div>
+                                        <div>A CALL</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Egypt Sherrod Signature -->
+                        <div class="mt-16">
+                            <div class="signature-font text-5xl lg:text-7xl text-white opacity-90 leading-tight">
+                                Egypt
+                            </div>
+                            <div class="signature-font text-3xl lg:text-5xl text-white opacity-80 -mt-3">
+                                Sherrod
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Content - Mobile Agent Photo -->
+                    <div class="lg:hidden">
+                        <div class="agent-photo-container h-80 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Below Hero Section -->
+    <section class="bg-gray-50 py-16 lg:py-24">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="space-y-6">
+                    <div>
+                        <p class="text-sm text-gray-500 tracking-widest uppercase mb-4">GUIDING YOUR JOURNEY HOME</p>
+                        <h2 class="playfair text-4xl lg:text-5xl text-gray-800 leading-tight">
+                            Welcome to
+                            <br>
+                            <span class="text-yellow-600">Indigo Road</span>
+                        </h2>
+                    </div>
+                </div>
+                
+                <!-- Right Content -->
+                <div class="space-y-6">
+                    <h3 class="text-xl lg:text-2xl font-semibold text-gray-800">
+                        Egypt Sherrod is Bringing Her Signature Style of Livable Luxury & The Comfort of Home Right To Your Door.
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Whether a first home purchase, investment property acquisition, or a cross country relocation, Indigo Road Realty goes above and beyond the normal real estate transaction. Our unwavering commitment is to deliver unparalleled service, expertise and stellar customer care, streamlining your journey to achieving your real estate dreams.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('hidden');
+        }
+        
+        function searchHomes() {
+            alert('Search for homes functionality');
+        }
+        
+        function sellHome() {
+            alert('Sell home functionality');
+        }
+        
+        function scheduleCall() {
+            alert('Schedule a call functionality');
+        }
+        
+        // Smooth scrolling animation on page load
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(function() {
+                document.body.style.transition = 'opacity 1s ease-in-out';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+        
+        // Parallax effect for hero background
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallax = document.querySelector('.hero-bg');
+            if (parallax && scrolled < window.innerHeight) {
+                const speed = scrolled * 0.3;
+                parallax.style.transform = `translateY(${speed}px)`;
+            }
+        });
+        
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const animateElements = document.querySelectorAll('section:not(.hero-bg)');
+            animateElements.forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(30px)';
+                el.style.transition = 'all 0.8s ease-out';
+                observer.observe(el);
+            });
+        });
+        
+        // Add hover effects to hexagon buttons
+        document.querySelectorAll('.hexagon-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'scale(1.05)';
+                }
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('active')) {
+                    this.style.transform = 'scale(1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
