@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Chatbot Integration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #d0b560;
+            padding-bottom: 10px;
+        }
+        .info-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #d0b560;
+        }
+        .info-box h3 {
+            margin-top: 0;
+            color: #152238;
+        }
+        .info-box ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .info-box li {
+            margin: 8px 0;
+        }
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+        }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .btn {
+            padding: 10px 20px;
+            background: #d0b560;
+            color: #152238;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #c4a854;
+        }
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Adriana Chatbot - Test Page</h1>
+        
+        <div class="info-box">
+            <h3>✅ System Components</h3>
+            <ul>
+                <li><strong>chatbot_widget.html</strong> - Main chatbot widget with full functionality</li>
+                <li><strong>chatbot_backend.php</strong> - Backend API for data storage and retrieval</li>
+                <li><strong>admin_dashboard.php</strong> - Admin panel to view conversations and users</li>
+                <li><strong>chatbot_data.json</strong> - JSON file storing all user and conversation data</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>🚀 Features Implemented</h3>
+            <ul>
+                <li>✅ User registration with name, email, and mobile number</li>
+                <li>✅ Automatic user recognition on return visits</li>
+                <li>✅ Complete conversation history storage in JSON format</li>
+                <li>✅ Previous conversation display for returning users</li>
+                <li>✅ Continue chatting from where user left off</li>
+                <li>✅ Real-time message saving to backend</li>
+                <li>✅ Admin dashboard with statistics and conversation viewer</li>
+                <li>✅ Data export functionality</li>
+                <li>✅ Automatic backup system (keeps last 10 backups)</li>
+                <li>✅ Search functionality in admin panel</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>📋 How It Works</h3>
+            <ol>
+                <li><strong>First Visit:</strong> User provides name, email, and mobile number</li>
+                <li><strong>Data Storage:</strong> User info and all messages are saved to JSON file via PHP backend</li>
+                <li><strong>Return Visit:</strong> System recognizes user by email and name combination</li>
+                <li><strong>History Display:</strong> Previous conversations are loaded and displayed</li>
+                <li><strong>Continuation:</strong> User can continue chatting with full context</li>
+                <li><strong>Admin Access:</strong> View all users and conversations in the admin dashboard</li>
+            </ol>
+        </div>
+
+        <div class="info-box">
+            <h3>⚙️ Configuration Required</h3>
+            <p>Update the following in <strong>chatbot_widget.html</strong>:</p>
+            <div class="code-block">
+// Line 1564 - Update backend URL if needed
+const BACKEND_URL = 'chatbot_backend.php';
+
+// Line 1565 - Add your Gemini API key
+const GEMINI_API_KEY = 'YOUR_ACTUAL_API_KEY_HERE';
+            </div>
+            
+            <p>Update admin password in <strong>admin_dashboard.php</strong>:</p>
+            <div class="code-block">
+// Line 5 - Change the admin password
+$ADMIN_PASSWORD = 'admin123'; // Change this to a secure password!
+            </div>
+        </div>
+
+        <div class="button-group">
+            <a href="chatbot_widget.html" class="btn" target="_blank">Open Chatbot Demo</a>
+            <a href="admin_dashboard.php" class="btn btn-secondary" target="_blank">Open Admin Dashboard</a>
+        </div>
+
+        <div class="status info">
+            <strong>Note:</strong> Make sure you have PHP enabled on your server. The chatbot widget appears as a floating button in the bottom-right corner of the page.
+        </div>
+
+        <div class="info-box">
+            <h3>🔒 Security Considerations</h3>
+            <ul>
+                <li>⚠️ Change the default admin password immediately</li>
+                <li>⚠️ Implement proper authentication for production use</li>
+                <li>⚠️ Consider using a database instead of JSON for large-scale deployments</li>
+                <li>⚠️ Add HTTPS for secure data transmission</li>
+                <li>⚠️ Implement rate limiting to prevent abuse</li>
+                <li>⚠️ Sanitize all user inputs properly</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>📊 Data Structure</h3>
+            <p>The JSON file stores data in the following structure:</p>
+            <div class="code-block">
+{
+  "users": [
+    {
+      "id": "user_unique_id",
+      "name": "John Doe",
+      "email": "john@example.com",
+      "mobile": "+1234567890",
+      "created_at": "2024-01-15 10:30:00",
+      "last_login": "2024-01-15 10:30:00",
+      "login_count": 1
+    }
+  ],
+  "conversations": [
+    {
+      "id": "conv_unique_id",
+      "user_id": "user_unique_id",
+      "date": "2024-01-15",
+      "started_at": "2024-01-15 10:30:00",
+      "messages": [
+        {
+          "id": "msg_unique_id",
+          "sender": "user|bot",
+          "message": "Message content",
+          "timestamp": "2024-01-15 10:30:00"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "created_at": "2024-01-15 10:00:00",
+    "last_updated": "2024-01-15 10:30:00",
+    "version": "1.0"
+  }
+}
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h3>🛠️ Troubleshooting</h3>
+            <ul>
+                <li><strong>Chatbot not saving data:</strong> Check PHP is enabled and file permissions are correct</li>
+                <li><strong>Admin panel not loading:</strong> Ensure chatbot_data.json exists and is readable</li>
+                <li><strong>AI responses not working:</strong> Add your Gemini API key in the configuration</li>
+                <li><strong>Widget not appearing:</strong> Check browser console for JavaScript errors</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Test backend connectivity
+        fetch('chatbot_backend.php?action=get_statistics')
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('✅ Backend is working!', data);
+                } else {
+                    console.error('❌ Backend error:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('❌ Cannot connect to backend:', error);
+            });
+    </script>
+</body>
+</html>
