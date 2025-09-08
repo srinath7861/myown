@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="top-bar-content">
+            <h1 class="dashboard-title">Learning Dashboard</h1>
+            <div class="user-info">
+                <span class="user-name">Welcome, Alex Johnson</span>
+                <div class="user-avatar">AJ</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard Container -->
+    <main class="dashboard-container">
+        <!-- Student Progress Overview -->
+        <section class="card progress-overview">
+            <h2 class="card-title">Overall Progress</h2>
+            <div class="progress-metrics">
+                <div class="metric-item">
+                    <div class="circular-progress" data-progress="78">
+                        <svg viewBox="0 0 100 100">
+                            <circle class="progress-track" cx="50" cy="50" r="45"></circle>
+                            <circle class="progress-fill" cx="50" cy="50" r="45"></circle>
+                        </svg>
+                        <div class="progress-text">78%</div>
+                    </div>
+                    <span class="metric-label">Overall Completion</span>
+                </div>
+                <div class="metric-item">
+                    <div class="stat-number">4.2</div>
+                    <span class="metric-label">Current GPA</span>
+                </div>
+                <div class="metric-item">
+                    <div class="stat-number">156</div>
+                    <span class="metric-label">Study Hours</span>
+                </div>
+                <div class="metric-item">
+                    <div class="stat-number">12</div>
+                    <span class="metric-label">Achievements</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Active Courses -->
+        <section class="card active-courses">
+            <div class="card-header">
+                <h2 class="card-title">Active Courses</h2>
+                <button class="btn-secondary small">View All</button>
+            </div>
+            <div class="courses-grid">
+                <div class="course-item">
+                    <div class="course-icon math">📐</div>
+                    <div class="course-info">
+                        <h3 class="course-name">Advanced Mathematics</h3>
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 85%"></div>
+                            </div>
+                            <span class="progress-percentage">85%</span>
+                        </div>
+                        <div class="course-meta">
+                            <span class="lessons-count">24/28 lessons</span>
+                            <span class="course-grade">Grade: A</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-item">
+                    <div class="course-icon science">🔬</div>
+                    <div class="course-info">
+                        <h3 class="course-name">Physics Lab</h3>
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 72%"></div>
+                            </div>
+                            <span class="progress-percentage">72%</span>
+                        </div>
+                        <div class="course-meta">
+                            <span class="lessons-count">18/25 lessons</span>
+                            <span class="course-grade">Grade: B+</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-item">
+                    <div class="course-icon literature">📚</div>
+                    <div class="course-info">
+                        <h3 class="course-name">English Literature</h3>
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 90%"></div>
+                            </div>
+                            <span class="progress-percentage">90%</span>
+                        </div>
+                        <div class="course-meta">
+                            <span class="lessons-count">27/30 lessons</span>
+                            <span class="course-grade">Grade: A+</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="course-item">
+                    <div class="course-icon computer">💻</div>
+                    <div class="course-info">
+                        <h3 class="course-name">Computer Science</h3>
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress-bar-fill" style="width: 68%"></div>
+                            </div>
+                            <span class="progress-percentage">68%</span>
+                        </div>
+                        <div class="course-meta">
+                            <span class="lessons-count">17/25 lessons</span>
+                            <span class="course-grade">Grade: B</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Performance Charts -->
+        <section class="card performance-charts">
+            <div class="card-header">
+                <h2 class="card-title">Performance Analytics</h2>
+                <div class="chart-tabs">
+                    <button class="tab-btn active" data-chart="weekly">Weekly</button>
+                    <button class="tab-btn" data-chart="monthly">Monthly</button>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="performanceChart"></canvas>
+            </div>
+            <div class="chart-legend">
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #3A7BFF"></span>
+                    <span>Study Hours</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #65D6A6"></span>
+                    <span>Assignments Completed</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color" style="background: #FFBE3C"></span>
+                    <span>Quiz Scores</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Current Assignments -->
+        <section class="card assignments">
+            <div class="card-header">
+                <h2 class="card-title">Current Assignments</h2>
+                <span class="badge">5 Active</span>
+            </div>
+            <div class="assignments-list">
+                <div class="assignment-item">
+                    <div class="assignment-icon math">📐</div>
+                    <div class="assignment-info">
+                        <h4 class="assignment-title">Calculus Problem Set #8</h4>
+                        <span class="assignment-course">Advanced Mathematics</span>
+                    </div>
+                    <div class="assignment-meta">
+                        <span class="due-date urgent">Due in 2 days</span>
+                        <button class="btn-primary small" onclick="submitAssignment('calc8')">Submit</button>
+                    </div>
+                </div>
+                <div class="assignment-item">
+                    <div class="assignment-icon science">🔬</div>
+                    <div class="assignment-info">
+                        <h4 class="assignment-title">Lab Report: Thermodynamics</h4>
+                        <span class="assignment-course">Physics Lab</span>
+                    </div>
+                    <div class="assignment-meta">
+                        <span class="due-date">Due in 5 days</span>
+                        <button class="btn-primary small" onclick="submitAssignment('lab1')">Submit</button>
+                    </div>
+                </div>
+                <div class="assignment-item">
+                    <div class="assignment-icon literature">📚</div>
+                    <div class="assignment-info">
+                        <h4 class="assignment-title">Essay: Shakespeare Analysis</h4>
+                        <span class="assignment-course">English Literature</span>
+                    </div>
+                    <div class="assignment-meta">
+                        <span class="due-date">Due in 7 days</span>
+                        <button class="btn-primary small" onclick="submitAssignment('essay1')">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Upcoming Deadlines -->
+        <section class="card deadlines">
+            <div class="card-header">
+                <h2 class="card-title">Upcoming Deadlines</h2>
+                <button class="btn-outline small">Calendar View</button>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="day">15</span>
+                        <span class="month">Jan</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Math Quiz #3</h4>
+                        <span class="timeline-time">2:00 PM</span>
+                    </div>
+                    <span class="status-badge warning">Tomorrow</span>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="day">17</span>
+                        <span class="month">Jan</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Physics Midterm Exam</h4>
+                        <span class="timeline-time">10:00 AM</span>
+                    </div>
+                    <span class="status-badge">In 3 days</span>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">
+                        <span class="day">20</span>
+                        <span class="month">Jan</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h4>Project Presentation</h4>
+                        <span class="timeline-time">3:30 PM</span>
+                    </div>
+                    <span class="status-badge">In 6 days</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Recent Achievements -->
+        <section class="card achievements">
+            <div class="card-header">
+                <h2 class="card-title">Recent Achievements</h2>
+                <button class="btn-secondary small">View All</button>
+            </div>
+            <div class="achievements-grid">
+                <div class="achievement-item">
+                    <div class="achievement-icon">🏆</div>
+                    <h4>Perfect Score</h4>
+                    <span class="achievement-desc">Math Quiz #2</span>
+                </div>
+                <div class="achievement-item">
+                    <div class="achievement-icon">⭐</div>
+                    <h4>7-Day Streak</h4>
+                    <span class="achievement-desc">Daily Study Goal</span>
+                </div>
+                <div class="achievement-item">
+                    <div class="achievement-icon">🎯</div>
+                    <h4>Fast Learner</h4>
+                    <span class="achievement-desc">Completed 5 lessons</span>
+                </div>
+                <div class="achievement-item">
+                    <div class="achievement-icon">📈</div>
+                    <h4>Top 10%</h4>
+                    <span class="achievement-desc">Class Ranking</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Study Time Analytics -->
+        <section class="card study-analytics">
+            <div class="card-header">
+                <h2 class="card-title">Study Time Analytics</h2>
+                <select class="period-selector">
+                    <option>This Week</option>
+                    <option>This Month</option>
+                    <option>This Semester</option>
+                </select>
+            </div>
+            <div class="study-stats">
+                <div class="stat-card">
+                    <span class="stat-label">Total Hours</span>
+                    <div class="stat-value">32.5</div>
+                    <span class="stat-change positive">+15% from last week</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Daily Average</span>
+                    <div class="stat-value">4.6h</div>
+                    <span class="stat-change positive">+0.8h from last week</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-label">Most Productive</span>
+                    <div class="stat-value">Evening</div>
+                    <span class="stat-change">6PM - 9PM</span>
+                </div>
+            </div>
+            <div class="subject-distribution">
+                <h3>Time by Subject</h3>
+                <div class="distribution-bars">
+                    <div class="distribution-item">
+                        <span class="subject-name">Mathematics</span>
+                        <div class="distribution-bar">
+                            <div class="distribution-fill" style="width: 35%; background: #3A7BFF"></div>
+                        </div>
+                        <span class="subject-time">11.4h</span>
+                    </div>
+                    <div class="distribution-item">
+                        <span class="subject-name">Physics</span>
+                        <div class="distribution-bar">
+                            <div class="distribution-fill" style="width: 28%; background: #65D6A6"></div>
+                        </div>
+                        <span class="subject-time">9.1h</span>
+                    </div>
+                    <div class="distribution-item">
+                        <span class="subject-name">Literature</span>
+                        <div class="distribution-bar">
+                            <div class="distribution-fill" style="width: 22%; background: #FFBE3C"></div>
+                        </div>
+                        <span class="subject-time">7.2h</span>
+                    </div>
+                    <div class="distribution-item">
+                        <span class="subject-name">Computer Science</span>
+                        <div class="distribution-bar">
+                            <div class="distribution-fill" style="width: 15%; background: #F44336"></div>
+                        </div>
+                        <span class="subject-time">4.8h</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions -->
+        <section class="card quick-actions">
+            <h2 class="card-title">Quick Actions</h2>
+            <div class="actions-grid">
+                <button class="action-btn" onclick="accessLesson()">
+                    <span class="action-icon">📖</span>
+                    <span>Access Lessons</span>
+                </button>
+                <button class="action-btn" onclick="submitWork()">
+                    <span class="action-icon">📝</span>
+                    <span>Submit Work</span>
+                </button>
+                <button class="action-btn" onclick="viewGrades()">
+                    <span class="action-icon">📊</span>
+                    <span>View Grades</span>
+                </button>
+                <button class="action-btn" onclick="startQuiz()">
+                    <span class="action-icon">❓</span>
+                    <span>Start Quiz</span>
+                </button>
+                <button class="action-btn" onclick="joinClass()">
+                    <span class="action-icon">👥</span>
+                    <span>Join Class</span>
+                </button>
+                <button class="action-btn" onclick="downloadMaterials()">
+                    <span class="action-icon">⬇️</span>
+                    <span>Download Materials</span>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Quick Actions -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Modal Title</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="modalBody" class="modal-body">
+                <!-- Dynamic content will be inserted here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline" onclick="closeModal()">Cancel</button>
+                <button class="btn-primary" id="modalAction">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
