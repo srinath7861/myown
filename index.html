@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indigo Road Realty - A Better Way Forward</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4A5568;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2D3748;
+        }
+        
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Hero overlay gradient */
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(45, 55, 72, 0.8) 0%, rgba(74, 85, 104, 0.6) 100%);
+        }
+        
+        /* Card hover effects */
+        .card-hover {
+            transition: all 300ms ease-in-out;
+        }
+        .card-hover:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Property overlay gradient */
+        .property-overlay {
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 60%);
+        }
+    </style>
+</head>
+<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;">
+    
+    <!-- Navigation -->
+    <nav id="navbar" style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); transition: all 300ms ease-in-out;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 1rem 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <!-- Logo -->
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                    <div style="width: 40px; height: 40px; background: #4A5568; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                        <span style="color: white; font-weight: 600; font-size: 18px;">IR</span>
+                    </div>
+                    <span style="font-weight: 600; color: #2D3748; font-size: 18px;">Indigo Road Realty</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div id="desktop-menu" style="display: none; gap: 2rem; align-items: center;">
+                    <a href="#properties" style="color: #2D3748; text-decoration: none; font-weight: 500; transition: color 300ms;" onmouseover="this.style.color='#C53030'" onmouseout="this.style.color='#2D3748'">PROPERTIES</a>
+                    <a href="#buying" style="color: #2D3748; text-decoration: none; font-weight: 500; transition: color 300ms;" onmouseover="this.style.color='#C53030'" onmouseout="this.style.color='#2D3748'">BUYING</a>
+                    <a href="#selling" style="color: #2D3748; text-decoration: none; font-weight: 500; transition: color 300ms;" onmouseover="this.style.color='#C53030'" onmouseout="this.style.color='#2D3748'">SELLING</a>
+                    <a href="#company" style="color: #2D3748; text-decoration: none; font-weight: 500; transition: color 300ms;" onmouseover="this.style.color='#C53030'" onmouseout="this.style.color='#2D3748'">OUR COMPANY</a>
+                    <a href="#resources" style="color: #2D3748; text-decoration: none; font-weight: 500; transition: color 300ms;" onmouseover="this.style.color='#C53030'" onmouseout="this.style.color='#2D3748'">RESOURCES</a>
+                    <a href="#contact" style="color: #2D3748; text-decoration: none; font-weight: 500; transition: color 300ms;" onmouseover="this.style.color='#C53030'" onmouseout="this.style.color='#2D3748'">CONTACT US</a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" style="display: block; background: none; border: none; cursor: pointer;">
+                    <svg style="width: 24px; height: 24px; color: #2D3748;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" style="display: none; padding-top: 1rem;">
+                <a href="#properties" onclick="toggleMobileMenu()" style="display: block; padding: 0.75rem 0; color: #2D3748; text-decoration: none; font-weight: 500; border-bottom: 1px solid #E2E8F0;">PROPERTIES</a>
+                <a href="#buying" onclick="toggleMobileMenu()" style="display: block; padding: 0.75rem 0; color: #2D3748; text-decoration: none; font-weight: 500; border-bottom: 1px solid #E2E8F0;">BUYING</a>
+                <a href="#selling" onclick="toggleMobileMenu()" style="display: block; padding: 0.75rem 0; color: #2D3748; text-decoration: none; font-weight: 500; border-bottom: 1px solid #E2E8F0;">SELLING</a>
+                <a href="#company" onclick="toggleMobileMenu()" style="display: block; padding: 0.75rem 0; color: #2D3748; text-decoration: none; font-weight: 500; border-bottom: 1px solid #E2E8F0;">OUR COMPANY</a>
+                <a href="#resources" onclick="toggleMobileMenu()" style="display: block; padding: 0.75rem 0; color: #2D3748; text-decoration: none; font-weight: 500; border-bottom: 1px solid #E2E8F0;">RESOURCES</a>
+                <a href="#contact" onclick="toggleMobileMenu()" style="display: block; padding: 0.75rem 0; color: #2D3748; text-decoration: none; font-weight: 500;">CONTACT US</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="hero" style="position: relative; height: 100vh; min-height: 600px; background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMDgwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxOTIwIiBoZWlnaHQ9IjEwODAiIGZpbGw9IiM0QTU1NjgiLz48L3N2Zz4=') center/cover;">
+        <div class="hero-overlay" style="position: absolute; inset: 0;">
+            <div style="max-width: 1200px; margin: 0 auto; padding: 2rem; height: 100%; display: flex; align-items: center;">
+                <div style="display: grid; grid-template-columns: 1fr; gap: 3rem; width: 100%;">
+                    <!-- Left Content -->
+                    <div style="color: white;">
+                        <div style="margin-bottom: 2rem;">
+                            <div style="width: 80px; height: 80px; background: white; display: flex; align-items: center; justify-content: center; border-radius: 12px; margin-bottom: 2rem;">
+                                <span style="color: #4A5568; font-weight: bold; font-size: 32px;">IR</span>
+                            </div>
+                            <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; margin-bottom: 1rem; line-height: 1.2;">Indigo Road Realty</h1>
+                            <p style="font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 300; opacity: 0.9;">A Better Way Forward</p>
+                        </div>
+                        
+                        <!-- Egypt Sherrod Info -->
+                        <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 12px; backdrop-filter: blur(10px);">
+                            <div style="display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;">
+                                <div style="width: 100px; height: 100px; background: #D4B896; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                    <span style="color: white; font-size: 36px; font-weight: 600;">ES</span>
+                                </div>
+                                <div>
+                                    <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Egypt Sherrod</h2>
+                                    <p style="opacity: 0.9; font-size: 1.125rem;">Founder & Lead Broker</p>
+                                    <p style="opacity: 0.8; margin-top: 0.5rem;">Your trusted partner in real estate excellence</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Welcome Section -->
+    <section id="welcome" style="background: #F7FAFC; padding: 5rem 2rem;">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 style="font-size: clamp(2rem, 4vw, 2.5rem); color: #2D3748; font-weight: 600; margin-bottom: 2rem;">Welcome to Indigo Road Realty</h2>
+            <p style="font-size: 1.125rem; color: #4A5568; line-height: 1.8; margin-bottom: 1.5rem;">
+                At Indigo Road Realty, we believe in creating a better way forward for all your real estate needs. 
+                With years of experience and a commitment to excellence, we're here to guide you through every step 
+                of your real estate journey.
+            </p>
+            <p style="font-size: 1.125rem; color: #4A5568; line-height: 1.8;">
+                Whether you're buying your first home, selling a property, or investing in real estate, 
+                our team of dedicated professionals is here to provide personalized service and expert guidance 
+                tailored to your unique needs.
+            </p>
+        </div>
+    </section>
+    
+    <!-- Communities/Services Section -->
+    <section id="services" style="padding: 5rem 2rem; background: white;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 style="font-size: clamp(2rem, 4vw, 2.5rem); color: #2D3748; font-weight: 600; margin-bottom: 3rem; text-align: center;">Our Services</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                
+                <!-- Communities Card -->
+                <div class="card-hover" style="position: relative; height: 400px; border-radius: 12px; overflow: hidden; cursor: pointer; background: linear-gradient(135deg, #4A5568 0%, #2D3748 100%);">
+                    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: end; padding: 2rem; color: white;">
+                        <h3 style="font-size: 2rem; font-weight: 600; margin-bottom: 1rem;">COMMUNITIES</h3>
+                        <p style="font-size: 1.125rem; opacity: 0.9; margin-bottom: 1.5rem;">Discover vibrant neighborhoods and find your perfect community</p>
+                        <button style="background: #C53030; color: white; padding: 0.75rem 2rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; width: fit-content;">Explore Communities</button>
+                    </div>
+                </div>
+                
+                <!-- Buying Card -->
+                <div id="buying" class="card-hover" style="position: relative; height: 400px; border-radius: 12px; overflow: hidden; cursor: pointer; background: linear-gradient(135deg, #D4B896 0%, #E8DCC6 100%);">
+                    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: end; padding: 2rem; color: #2D3748;">
+                        <h3 style="font-size: 2rem; font-weight: 600; margin-bottom: 1rem;">FOR BUYERS</h3>
+                        <p style="font-size: 1.125rem; opacity: 0.9; margin-bottom: 1.5rem;">Your journey to homeownership starts here</p>
+                        <button style="background: #2D3748; color: white; padding: 0.75rem 2rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; width: fit-content;">Start Buying</button>
+                    </div>
+                </div>
+                
+                <!-- Selling Card -->
+                <div id="selling" class="card-hover" style="position: relative; height: 400px; border-radius: 12px; overflow: hidden; cursor: pointer; background: linear-gradient(135deg, #C53030 0%, #E85656 100%);">
+                    <div style="position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: end; padding: 2rem; color: white;">
+                        <h3 style="font-size: 2rem; font-weight: 600; margin-bottom: 1rem;">SELLING</h3>
+                        <p style="font-size: 1.125rem; opacity: 0.9; margin-bottom: 1.5rem;">Maximize your property's value with our expertise</p>
+                        <button style="background: white; color: #C53030; padding: 0.75rem 2rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; width: fit-content;">List Your Property</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Sections (Home Worth, Buying Process, Selling Process) -->
+    <section id="resources" style="padding: 5rem 0; background: #F7FAFC;">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+            
+            <!-- What's My Home Worth -->
+            <div style="display: grid; grid-template-columns: 1fr; gap: 3rem; margin-bottom: 4rem;">
+                <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <div style="display: grid; grid-template-columns: 1fr;">
+                        <div style="padding: 3rem; background: #4A5568;">
+                            <h3 style="font-size: 2rem; font-weight: 600; color: white; margin-bottom: 1.5rem;">What's My Home Worth?</h3>
+                            <p style="font-size: 1.125rem; color: rgba(255, 255, 255, 0.9); margin-bottom: 2rem; line-height: 1.6;">
+                                Get a comprehensive market analysis of your property's value. Our expert team uses the latest market data 
+                                and comparable sales to provide you with an accurate assessment.
+                            </p>
+                            <form onsubmit="handleHomeWorthForm(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+                                <input type="text" placeholder="Your Address" style="padding: 0.75rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(255, 255, 255, 0.1); color: white; font-size: 1rem;" required>
+                                <input type="email" placeholder="Your Email" style="padding: 0.75rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(255, 255, 255, 0.1); color: white; font-size: 1rem;" required>
+                                <button type="submit" style="background: #C53030; color: white; padding: 0.75rem 2rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 300ms;">Get Free Valuation</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- The Buying Process -->
+            <div style="display: grid; grid-template-columns: 1fr; gap: 3rem; margin-bottom: 4rem;">
+                <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <div style="padding: 3rem;">
+                        <h3 style="font-size: 2rem; font-weight: 600; color: #2D3748; margin-bottom: 2rem;">The Buying Process</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                            <div style="text-align: center;">
+                                <div style="width: 60px; height: 60px; background: #D4B896; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                                    <span style="color: white; font-size: 24px; font-weight: bold;">1</span>
+                                </div>
+                                <h4 style="font-size: 1.25rem; font-weight: 600; color: #2D3748; margin-bottom: 0.5rem;">Pre-Approval</h4>
+                                <p style="color: #4A5568;">Get pre-approved for a mortgage to understand your budget</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 60px; height: 60px; background: #D4B896; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                                    <span style="color: white; font-size: 24px; font-weight: bold;">2</span>
+                                </div>
+                                <h4 style="font-size: 1.25rem; font-weight: 600; color: #2D3748; margin-bottom: 0.5rem;">House Hunting</h4>
+                                <p style="color: #4A5568;">We'll help you find properties that match your criteria</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 60px; height: 60px; background: #D4B896; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                                    <span style="color: white; font-size: 24px; font-weight: bold;">3</span>
+                                </div>
+                                <h4 style="font-size: 1.25rem; font-weight: 600; color: #2D3748; margin-bottom: 0.5rem;">Make an Offer</h4>
+                                <p style="color: #4A5568;">We'll negotiate the best terms for your offer</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 60px; height: 60px; background: #D4B896; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                                    <span style="color: white; font-size: 24px; font-weight: bold;">4</span>
+                                </div>
+                                <h4 style="font-size: 1.25rem; font-weight: 600; color: #2D3748; margin-bottom: 0.5rem;">Closing</h4>
+                                <p style="color: #4A5568;">Complete the purchase and get your keys</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- The Selling Process -->
+            <div style="display: grid; grid-template-columns: 1fr; gap: 3rem;">
+                <div style="background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <div style="padding: 3rem;">
+                        <h3 style="font-size: 2rem; font-weight: 600; color: #2D3748; margin-bottom: 2rem;">The Selling Process</h3>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                            <div style="text-align: center;">
+                                <div style="width: 60px; height: 60px; background: #C53030; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                                    <span style="color: white; font-size: 24px; font-weight: bold;">1</span>
+                                </div>
+                                <h4 style="font-size: 1.25rem; font-weight: 600; color: #2D3748; margin-bottom: 0.5rem;">Market Analysis</h4>
+                                <p style="color: #4A5568;">We'll determine the optimal listing price</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 60px; height: 60px; background: #C53030; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                                    <span style="color: white; font-size: 24px; font-weight: bold;">2</span>
+                                </div>
+                                <h4 style="font-size: 1.25rem; font-weight: 600; color: #2D3748; margin-bottom: 0.5rem;">Prepare & Stage</h4>
+                                <p style="color: #4A5568;">Get your home ready to attract buyers</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 60px; height: 60px; background: #C53030; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                                    <span style="color: white; font-size: 24px; font-weight: bold;">3</span>
+                                </div>
+                                <h4 style="font-size: 1.25rem; font-weight: 600; color: #2D3748; margin-bottom: 0.5rem;">Marketing</h4>
+                                <p style="color: #4A5568;">Professional photos and targeted marketing</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <div style="width: 60px; height: 60px; background: #C53030; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                                    <span style="color: white; font-size: 24px; font-weight: bold;">4</span>
+                                </div>
+                                <h4 style="font-size: 1.25rem; font-weight: 600; color: #2D3748; margin-bottom: 0.5rem;">Negotiate & Close</h4>
+                                <p style="color: #4A5568;">We'll handle negotiations and closing details</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Indigo Road Realty Listing of the Day -->
+    <section style="padding: 5rem 2rem; background: white;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 style="font-size: clamp(2rem, 4vw, 2.5rem); color: #2D3748; font-weight: 600; margin-bottom: 1rem; text-align: center;">Featured Indigo Road Realty</h2>
+            <h3 style="font-size: 1.5rem; color: #C53030; font-weight: 500; margin-bottom: 3rem; text-align: center;">Listing of the Day</h3>
+            
+            <div style="background: #F7FAFC; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                <div style="display: grid; grid-template-columns: 1fr;">
+                    <!-- Property Image Placeholder -->
+                    <div style="height: 400px; background: linear-gradient(135deg, #E2E8F0 0%, #CBD5E0 100%); display: flex; align-items: center; justify-content: center;">
+                        <div style="text-align: center;">
+                            <div style="width: 80px; height: 80px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                                <svg style="width: 40px; height: 40px; color: #4A5568;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <p style="color: #4A5568; font-size: 1.25rem; font-weight: 500;">Photo Coming Soon</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Property Details -->
+                    <div style="padding: 2rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+                            <div>
+                                <h4 style="font-size: 1.75rem; font-weight: 600; color: #2D3748; margin-bottom: 0.5rem;">Luxury Modern Estate</h4>
+                                <p style="color: #4A5568; font-size: 1.125rem;">123 Indigo Road, Atlanta, GA 30309</p>
+                            </div>
+                            <div style="text-align: right;">
+                                <p style="font-size: 2rem; font-weight: bold; color: #C53030;">$850,000</p>
+                                <p style="color: #4A5568;">$4,250/month est.</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span style="font-weight: 600; color: #2D3748;">4</span>
+                                <span style="color: #4A5568;">Bedrooms</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span style="font-weight: 600; color: #2D3748;">3.5</span>
+                                <span style="color: #4A5568;">Bathrooms</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span style="font-weight: 600; color: #2D3748;">3,500</span>
+                                <span style="color: #4A5568;">Sq Ft</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                <span style="font-weight: 600; color: #2D3748;">0.5</span>
+                                <span style="color: #4A5568;">Acres</span>
+                            </div>
+                        </div>
+                        
+                        <p style="color: #4A5568; line-height: 1.6; margin-bottom: 2rem;">
+                            Stunning modern estate featuring an open floor plan, gourmet kitchen with top-of-the-line appliances, 
+                            spacious master suite with spa-like bathroom, and beautifully landscaped backyard perfect for entertaining.
+                        </p>
+                        
+                        <button onclick="alert('Contact us to schedule a viewing!')" style="background: #C53030; color: white; padding: 0.75rem 2rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 300ms;">Schedule Viewing</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Featured Properties Carousel -->
+    <section id="properties" style="padding: 5rem 2rem; background: #F7FAFC;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 style="font-size: clamp(2rem, 4vw, 2.5rem); color: #2D3748; font-weight: 600; margin-bottom: 3rem; text-align: center;">Featured Properties</h2>
+            
+            <!-- Carousel Controls -->
+            <div style="display: flex; justify-content: center; align-items: center; gap: 2rem; margin-bottom: 2rem;">
+                <button onclick="previousSlide()" style="background: #4A5568; color: white; padding: 0.5rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 500;">Previous</button>
+                <button onclick="viewAllProperties()" style="background: #C53030; color: white; padding: 0.5rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 500;">View All</button>
+                <button onclick="nextSlide()" style="background: #4A5568; color: white; padding: 0.5rem 1.5rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 500;">Next</button>
+            </div>
+            
+            <!-- Properties Grid -->
+            <div id="properties-carousel" style="overflow: hidden;">
+                <div id="properties-container" style="display: flex; transition: transform 300ms ease-in-out;">
+                    <!-- Slide 1 -->
+                    <div class="property-slide" style="min-width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                        <!-- Property 1 -->
+                        <div class="card-hover" style="position: relative; height: 350px; border-radius: 12px; overflow: hidden; background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI0Q0Qjg5NiIvPjwvc3ZnPg==') center/cover;">
+                            <div class="property-overlay" style="position: absolute; inset: 0;">
+                                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; color: white;">
+                                    <h4 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Modern Condo</h4>
+                                    <p style="font-size: 1rem; opacity: 0.9; margin-bottom: 0.5rem;">Downtown Atlanta</p>
+                                    <p style="font-size: 1.25rem; font-weight: bold;">$450,000</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Property 2 -->
+                        <div class="card-hover" style="position: relative; height: 350px; border-radius: 12px; overflow: hidden; background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzRBNTU2OCIvPjwvc3ZnPg==') center/cover;">
+                            <div class="property-overlay" style="position: absolute; inset: 0;">
+                                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; color: white;">
+                                    <h4 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Family Home</h4>
+                                    <p style="font-size: 1rem; opacity: 0.9; margin-bottom: 0.5rem;">Buckhead</p>
+                                    <p style="font-size: 1.25rem; font-weight: bold;">$750,000</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Property 3 -->
+                        <div class="card-hover" style="position: relative; height: 350px; border-radius: 12px; overflow: hidden; background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI0M1MzAzMCIvPjwvc3ZnPg==') center/cover;">
+                            <div class="property-overlay" style="position: absolute; inset: 0;">
+                                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; color: white;">
+                                    <h4 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Luxury Penthouse</h4>
+                                    <p style="font-size: 1rem; opacity: 0.9; margin-bottom: 0.5rem;">Midtown</p>
+                                    <p style="font-size: 1.25rem; font-weight: bold;">$1,200,000</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Property 4 -->
+                        <div class="card-hover" style="position: relative; height: 350px; border-radius: 12px; overflow: hidden; background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzJEMzc0OCIvPjwvc3ZnPg==') center/cover;">
+                            <div class="property-overlay" style="position: absolute; inset: 0;">
+                                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; color: white;">
+                                    <h4 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Townhouse</h4>
+                                    <p style="font-size: 1rem; opacity: 0.9; margin-bottom: 0.5rem;">Virginia Highland</p>
+                                    <p style="font-size: 1.25rem; font-weight: bold;">$550,000</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Slide 2 -->
+                    <div class="property-slide" style="min-width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+                        <!-- Property 5 -->
+                        <div class="card-hover" style="position: relative; height: 350px; border-radius: 12px; overflow: hidden; background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI0U4RENDNiIvPjwvc3ZnPg==') center/cover;">
+                            <div class="property-overlay" style="position: absolute; inset: 0;">
+                                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; color: white;">
+                                    <h4 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Ranch Style</h4>
+                                    <p style="font-size: 1rem; opacity: 0.9; margin-bottom: 0.5rem;">Alpharetta</p>
+                                    <p style="font-size: 1.25rem; font-weight: bold;">$625,000</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Property 6 -->
+                        <div class="card-hover" style="position: relative; height: 350px; border-radius: 12px; overflow: hidden; background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzRBNTU2OCIvPjwvc3ZnPg==') center/cover;">
+                            <div class="property-overlay" style="position: absolute; inset: 0;">
+                                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; color: white;">
+                                    <h4 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Colonial Estate</h4>
+                                    <p style="font-size: 1rem; opacity: 0.9; margin-bottom: 0.5rem;">Sandy Springs</p>
+                                    <p style="font-size: 1.25rem; font-weight: bold;">$980,000</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Property 7 -->
+                        <div class="card-hover" style="position: relative; height: 350px; border-radius: 12px; overflow: hidden; background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI0Q0Qjg5NiIvPjwvc3ZnPg==') center/cover;">
+                            <div class="property-overlay" style="position: absolute; inset: 0;">
+                                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; color: white;">
+                                    <h4 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Loft Apartment</h4>
+                                    <p style="font-size: 1rem; opacity: 0.9; margin-bottom: 0.5rem;">West Midtown</p>
+                                    <p style="font-size: 1.25rem; font-weight: bold;">$385,000</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Property 8 -->
+                        <div class="card-hover" style="position: relative; height: 350px; border-radius: 12px; overflow: hidden; background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iI0M1MzAzMCIvPjwvc3ZnPg==') center/cover;">
+                            <div class="property-overlay" style="position: absolute; inset: 0;">
+                                <div style="position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem; color: white;">
+                                    <h4 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Mediterranean Villa</h4>
+                                    <p style="font-size: 1rem; opacity: 0.9; margin-bottom: 0.5rem;">Dunwoody</p>
+                                    <p style="font-size: 1.25rem; font-weight: bold;">$1,450,000</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Keep up with Egypt Sherrod and Indigo Road Signup Section -->
+    <section id="company" style="padding: 5rem 2rem; background: #2D3748;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 style="font-size: clamp(2rem, 4vw, 2.5rem); color: white; font-weight: 600; margin-bottom: 1rem; text-align: center;">Keep up with Egypt Sherrod</h2>
+            <h3 style="font-size: 1.5rem; color: #D4B896; font-weight: 500; margin-bottom: 3rem; text-align: center;">and Indigo Road by Signing Up</h3>
+            
+            <!-- Social Media Grid -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                <!-- Instagram Post 1 -->
+                <div style="background: #4A5568; border-radius: 12px; overflow: hidden; aspect-ratio: 1;">
+                    <div style="padding: 1.5rem; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                        <div style="width: 60px; height: 60px; background: #D4B896; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                            <svg style="width: 30px; height: 30px; color: white;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.405a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
+                            </svg>
+                        </div>
+                        <p style="color: white; font-weight: 500;">Follow us on Instagram</p>
+                        <p style="color: #D4B896; margin-top: 0.5rem;">@indigoroadrealty</p>
+                    </div>
+                </div>
+                
+                <!-- Facebook Post -->
+                <div style="background: #4A5568; border-radius: 12px; overflow: hidden; aspect-ratio: 1;">
+                    <div style="padding: 1.5rem; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                        <div style="width: 60px; height: 60px; background: #D4B896; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                            <svg style="width: 30px; height: 30px; color: white;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </div>
+                        <p style="color: white; font-weight: 500;">Like us on Facebook</p>
+                        <p style="color: #D4B896; margin-top: 0.5rem;">Indigo Road Realty</p>
+                    </div>
+                </div>
+                
+                <!-- Twitter/X Post -->
+                <div style="background: #4A5568; border-radius: 12px; overflow: hidden; aspect-ratio: 1;">
+                    <div style="padding: 1.5rem; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                        <div style="width: 60px; height: 60px; background: #D4B896; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem;">
+                            <svg style="width: 30px; height: 30px; color: white;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </div>
+                        <p style="color: white; font-weight: 500;">Follow us on X</p>
+                        <p style="color: #D4B896; margin-top: 0.5rem;">@IndigoRoadReal</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Newsletter Signup -->
+            <div style="background: rgba(255, 255, 255, 0.1); padding: 3rem; border-radius: 12px; backdrop-filter: blur(10px);">
+                <h3 style="font-size: 1.75rem; color: white; font-weight: 600; margin-bottom: 1rem; text-align: center;">Stay Updated with Our Newsletter</h3>
+                <p style="color: rgba(255, 255, 255, 0.9); text-align: center; margin-bottom: 2rem;">Get the latest listings, market updates, and real estate tips delivered to your inbox</p>
+                
+                <form onsubmit="handleNewsletterSignup(event)" style="max-width: 600px; margin: 0 auto;">
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <input type="text" placeholder="First Name" style="flex: 1; min-width: 200px; padding: 0.75rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(255, 255, 255, 0.1); color: white; font-size: 1rem;" required>
+                        <input type="text" placeholder="Last Name" style="flex: 1; min-width: 200px; padding: 0.75rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(255, 255, 255, 0.1); color: white; font-size: 1rem;" required>
+                    </div>
+                    <input type="email" placeholder="Email Address" style="width: 100%; margin-top: 1rem; padding: 0.75rem; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.3); background: rgba(255, 255, 255, 0.1); color: white; font-size: 1rem;" required>
+                    <button type="submit" style="width: 100%; margin-top: 1.5rem; background: #C53030; color: white; padding: 1rem; border: none; border-radius: 8px; font-weight: 600; font-size: 1.125rem; cursor: pointer; transition: background 300ms;">Sign Up Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Get In Touch / Contact Section -->
+    <section id="contact" style="padding: 5rem 2rem; background: white;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <h2 style="font-size: clamp(2rem, 4vw, 2.5rem); color: #2D3748; font-weight: 600; margin-bottom: 1rem; text-align: center;">Get In Touch</h2>
+            <h3 style="font-size: 1.5rem; color: #4A5568; font-weight: 500; margin-bottom: 3rem; text-align: center;">Contact Us</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr; gap: 3rem;">
+                <!-- Contact Form -->
+                <div style="background: #F7FAFC; padding: 3rem; border-radius: 12px;">
+                    <form onsubmit="handleContactForm(event)">
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+                            <input type="text" placeholder="Your Name" style="padding: 0.75rem; border-radius: 8px; border: 1px solid #E2E8F0; font-size: 1rem;" required>
+                            <input type="email" placeholder="Your Email" style="padding: 0.75rem; border-radius: 8px; border: 1px solid #E2E8F0; font-size: 1rem;" required>
+                        </div>
+                        <input type="tel" placeholder="Phone Number" style="width: 100%; margin-top: 1.5rem; padding: 0.75rem; border-radius: 8px; border: 1px solid #E2E8F0; font-size: 1rem;">
+                        <select style="width: 100%; margin-top: 1.5rem; padding: 0.75rem; border-radius: 8px; border: 1px solid #E2E8F0; font-size: 1rem; background: white;">
+                            <option>I'm interested in...</option>
+                            <option>Buying a Property</option>
+                            <option>Selling a Property</option>
+                            <option>Property Valuation</option>
+                            <option>Investment Opportunities</option>
+                            <option>General Inquiry</option>
+                        </select>
+                        <textarea placeholder="Your Message" rows="5" style="width: 100%; margin-top: 1.5rem; padding: 0.75rem; border-radius: 8px; border: 1px solid #E2E8F0; font-size: 1rem; resize: vertical;" required></textarea>
+                        <button type="submit" style="margin-top: 1.5rem; background: #C53030; color: white; padding: 1rem 2rem; border: none; border-radius: 8px; font-weight: 600; font-size: 1.125rem; cursor: pointer; transition: background 300ms;">Send Message</button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+                    <!-- Office -->
+                    <div style="text-align: center; padding: 2rem; background: #F7FAFC; border-radius: 12px;">
+                        <div style="width: 60px; height: 60px; background: #4A5568; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                            <svg style="width: 30px; height: 30px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                        </div>
+                        <h4 style="font-size: 1.25rem; font-weight: 600; color: #2D3748; margin-bottom: 0.5rem;">Office Location</h4>
+                        <p style="color: #4A5568;">123 Indigo Road<br>Atlanta, GA 30309</p>
+                    </div>
+                    
+                    <!-- Phone -->
+                    <div style="text-align: center; padding: 2rem; background: #F7FAFC; border-radius: 12px;">
+                        <div style="width: 60px; height: 60px; background: #D4B896; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                            <svg style="width: 30px; height: 30px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                        </div>
+                        <h4 style="font-size: 1.25rem; font-weight: 600; color: #2D3748; margin-bottom: 0.5rem;">Call Us</h4>
+                        <p style="color: #4A5568;">(404) 555-0123<br>Mon-Fri 9AM-6PM</p>
+                    </div>
+                    
+                    <!-- Email -->
+                    <div style="text-align: center; padding: 2rem; background: #F7FAFC; border-radius: 12px;">
+                        <div style="width: 60px; height: 60px; background: #C53030; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;">
+                            <svg style="width: 30px; height: 30px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h4 style="font-size: 1.25rem; font-weight: 600; color: #2D3748; margin-bottom: 0.5rem;">Email Us</h4>
+                        <p style="color: #4A5568;">info@indigoroadrealty.com<br>egypt@indigoroadrealty.com</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer style="background: #000; color: white; padding: 3rem 2rem 2rem;">
+        <div style="max-width: 1200px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 3rem; margin-bottom: 3rem;">
+                <!-- Logo & About -->
+                <div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem;">
+                        <div style="width: 40px; height: 40px; background: white; display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+                            <span style="color: #4A5568; font-weight: 600; font-size: 18px;">IR</span>
+                        </div>
+                        <span style="font-weight: 600; font-size: 18px;">Indigo Road Realty</span>
+                    </div>
+                    <p style="opacity: 0.8; line-height: 1.6;">A Better Way Forward. Your trusted partner in real estate, providing exceptional service and expertise in the Atlanta market.</p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem;">Quick Links</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <a href="#properties" style="color: white; text-decoration: none; opacity: 0.8; transition: opacity 300ms;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">Properties</a>
+                        <a href="#buying" style="color: white; text-decoration: none; opacity: 0.8; transition: opacity 300ms;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">Buying Guide</a>
+                        <a href="#selling" style="color: white; text-decoration: none; opacity: 0.8; transition: opacity 300ms;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">Selling Guide</a>
+                        <a href="#resources" style="color: white; text-decoration: none; opacity: 0.8; transition: opacity 300ms;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">Resources</a>
+                    </div>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem;">Contact Info</h4>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem; opacity: 0.8;">
+                        <p>123 Indigo Road, Atlanta, GA 30309</p>
+                        <p>(404) 555-0123</p>
+                        <p>info@indigoroadrealty.com</p>
+                    </div>
+                </div>
+                
+                <!-- Social Media -->
+                <div>
+                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1.5rem;">Follow Us</h4>
+                    <div style="display: flex; gap: 1rem;">
+                        <a href="#" style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 300ms;" onmouseover="this.style.background='#C53030'" onmouseout="this.style.background='rgba(255, 255, 255, 0.1)'">
+                            <svg style="width: 20px; height: 20px; color: white;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                            </svg>
+                        </a>
+                        <a href="#" style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 300ms;" onmouseover="this.style.background='#C53030'" onmouseout="this.style.background='rgba(255, 255, 255, 0.1)'">
+                            <svg style="width: 20px; height: 20px; color: white;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.405a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
+                            </svg>
+                        </a>
+                        <a href="#" style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 300ms;" onmouseover="this.style.background='#C53030'" onmouseout="this.style.background='rgba(255, 255, 255, 0.1)'">
+                            <svg style="width: 20px; height: 20px; color: white;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                            </svg>
+                        </a>
+                        <a href="#" style="width: 40px; height: 40px; background: rgba(255, 255, 255, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: background 300ms;" onmouseover="this.style.background='#C53030'" onmouseout="this.style.background='rgba(255, 255, 255, 0.1)'">
+                            <svg style="width: 20px; height: 20px; color: white;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 2rem; text-align: center; opacity: 0.6;">
+                <p>&copy; 2024 Indigo Road Realty. All rights reserved. | <a href="#" style="color: white; text-decoration: none;">Privacy Policy</a> | <a href="#" style="color: white; text-decoration: none;">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        // Responsive menu display
+        function updateMenuDisplay() {
+            const desktopMenu = document.getElementById('desktop-menu');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (window.innerWidth >= 768) {
+                desktopMenu.style.display = 'flex';
+                mobileMenuBtn.style.display = 'none';
+                mobileMenu.style.display = 'none';
+            } else {
+                desktopMenu.style.display = 'none';
+                mobileMenuBtn.style.display = 'block';
+            }
+        }
+        
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+        
+        // Properties carousel
+        let currentSlide = 0;
+        const totalSlides = 2;
+        
+        function updateCarousel() {
+            const container = document.getElementById('properties-container');
+            container.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+        
+        function previousSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+        
+        function viewAllProperties() {
+            alert('View All Properties - This would navigate to a full properties listing page');
+        }
+        
+        // Form handlers
+        function handleHomeWorthForm(event) {
+            event.preventDefault();
+            alert('Thank you! We will contact you soon with your home valuation.');
+            event.target.reset();
+        }
+        
+        function handleNewsletterSignup(event) {
+            event.preventDefault();
+            alert('Thank you for subscribing to our newsletter!');
+            event.target.reset();
+        }
+        
+        function handleContactForm(event) {
+            event.preventDefault();
+            alert('Thank you for your message! We will get back to you within 24 hours.');
+            event.target.reset();
+        }
+        
+        // Initialize
+        window.addEventListener('resize', updateMenuDisplay);
+        updateMenuDisplay();
+        
+        // Auto-rotate carousel
+        setInterval(nextSlide, 5000);
+    </script>
+</body>
+</html>
