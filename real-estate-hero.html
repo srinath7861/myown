@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Real Estate Hero</title>
+  <meta name="description" content="Beautiful real estate hero section with search bar and calls to action.">
+  <style>
+    :root {
+      --brand: #2563eb;
+      --brand-600: #1d4ed8;
+      --text: #0f172a;
+      --ring: rgba(59, 130, 246, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica Neue, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      line-height: 1.55;
+      color: var(--text);
+      background: #0b1220;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header */
+    .site-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      padding: 12px 0;
+      background: transparent;
+    }
+    .site-header .inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 800;
+      letter-spacing: .2px;
+    }
+    .brand .logo {
+      width: 28px;
+      height: 28px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.2);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.24);
+      backdrop-filter: blur(2px);
+    }
+    .brand .name { font-size: 1.05rem; }
+    .nav { display: flex; align-items: center; gap: 14px; }
+    .nav a { color: #fff; text-decoration: none; opacity: 0.95; font-weight: 600; }
+    .nav a:hover { opacity: 1; }
+    .btn.small { padding: 8px 12px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.35); }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 88vh;
+      color: #fff;
+      background-image:
+        linear-gradient(110deg, rgba(2, 6, 23, 0.78), rgba(2, 6, 23, 0.40)),
+        url('https://images.unsplash.com/photo-1501183638710-841dd1904471?q=80&w=1974&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(1000px 60% at 85% 15%, rgba(37, 99, 235, 0.22), transparent 60%);
+      pointer-events: none;
+    }
+    .hero .container { position: relative; z-index: 1; }
+    .hero-content { max-width: 860px; padding: 90px 0 60px; }
+    .eyebrow {
+      margin: 0 0 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .8rem;
+      color: #dbeafe;
+      text-shadow: 0 1px 2px rgba(0,0,0,.25);
+    }
+    h1 {
+      margin: 0 0 14px;
+      font-weight: 800;
+      line-height: 1.08;
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      text-shadow: 0 1px 2px rgba(0,0,0,.35);
+    }
+    .subhead {
+      margin: 0 0 22px;
+      max-width: 60ch;
+      font-size: clamp(1rem, 1.6vw, 1.125rem);
+      color: #e2e8f0;
+    }
+
+    .search-form {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr auto;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(15,23,42,0.55);
+      border: 1px solid rgba(255,255,255,0.12);
+      box-shadow: 0 10px 30px rgba(2,6,23,0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      margin: 0 0 16px;
+    }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .label { font-size: .75rem; color: #cbd5e1; }
+    .field input[type="text"], .field select {
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      outline: none;
+      transition: border-color .2s, box-shadow .2s, background-color .2s;
+    }
+    .field input::placeholder { color: #cbd5e1; opacity: .85; }
+    .field select {
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 20 20" fill="none" stroke="white" stroke-width="1.75"><path d="M6 8l4 4 4-4"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 18px;
+      padding-right: 38px;
+      cursor: pointer;
+    }
+    .field input:focus, .field select:focus {
+      border-color: rgba(147,197,253,0.9);
+      box-shadow: 0 0 0 3px var(--ring);
+      background: rgba(255,255,255,0.12);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 18px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      border: 1px solid transparent;
+      transition: background-color .2s, transform .05s, border-color .2s, color .2s;
+      cursor: pointer;
+      user-select: none;
+    }
+    .btn.primary { background: var(--brand); color: #fff; border-color: var(--brand-600); }
+    .btn.primary:hover { background: var(--brand-600); }
+    .btn.light { background: rgba(255,255,255,0.18); color: #fff; border-color: rgba(255,255,255,0.25); }
+    .btn.light:hover { background: rgba(255,255,255,0.28); }
+    .btn.outline { background: transparent; color: #fff; border-color: rgba(255,255,255,0.45); }
+    .btn.outline:hover { background: rgba(255,255,255,0.1); }
+
+    .search-submit { white-space: nowrap; }
+    .cta-row { display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap; }
+
+    .trust { display: flex; flex-wrap: wrap; margin: 14px 0 0; padding: 0; gap: 12px; list-style: none; color: #d1d5db; }
+    .trust li {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 10px;
+      padding: 10px 12px;
+    }
+
+    .photo-credit {
+      position: absolute;
+      right: 16px;
+      bottom: 12px;
+      font-size: .75rem;
+      color: rgba(255,255,255,0.7);
+      text-shadow: 0 1px 2px rgba(0,0,0,.25);
+    }
+
+    @media (max-width: 980px) {
+      .search-form { grid-template-columns: 1fr 1fr; }
+      .search-submit { grid-column: 1 / -1; }
+    }
+    @media (max-width: 560px) {
+      .nav { display: none; }
+      .cta-row { flex-direction: column; }
+      .btn { width: 100%; }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-content { animation: float-in 600ms cubic-bezier(.2,.6,.2,1) both 100ms; }
+      @keyframes float-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+      .btn:active { transform: translateY(1px); }
+    }
+  </style>
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+  <link rel="dns-prefetch" href="https://images.unsplash.com">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#111827">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <div class="inner">
+        <a href="#" class="brand" aria-label="HomeFinder home">
+          <span class="logo" aria-hidden="true">🏠</span>
+          <span class="name">HomeFinder</span>
+        </a>
+        <nav class="nav" aria-label="Primary">
+          <a href="#">Buy</a>
+          <a href="#">Rent</a>
+          <a href="#">Sell</a>
+          <a href="#" class="btn small">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" role="region" aria-label="Hero">
+      <div class="container">
+        <div class="hero-content">
+          <p class="eyebrow">New listings daily</p>
+          <h1>Find your next home with confidence</h1>
+          <p class="subhead">Search thousands of homes for sale and rent in top neighborhoods. Compare prices, explore areas, and connect with top-rated local agents.</p>
+
+          <form class="search-form" role="search" aria-label="Property search" action="#" method="get">
+            <label class="field">
+              <span class="label">Location</span>
+              <input type="text" name="location" placeholder="City, neighborhood, or ZIP" autocomplete="postal-code" inputmode="search">
+            </label>
+            <label class="field">
+              <span class="label">Type</span>
+              <select name="type" aria-label="Listing type">
+                <option value="buy">Buy</option>
+                <option value="rent">Rent</option>
+                <option value="new">New Builds</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="label">Price</span>
+              <select name="price" aria-label="Price range">
+                <option value="any">Any</option>
+                <option value="0-250">Up to $250k</option>
+                <option value="250-500">$250k–$500k</option>
+                <option value="500-750">$500k–$750k</option>
+                <option value="750-1m">$750k–$1M</option>
+                <option value="1m+">$1M+</option>
+              </select>
+            </label>
+            <label class="field">
+              <span class="label">Beds</span>
+              <select name="beds" aria-label="Bedrooms">
+                <option value="any">Any</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+                <option value="5">5+</option>
+              </select>
+            </label>
+            <button class="btn primary search-submit" type="submit">Search homes</button>
+          </form>
+
+          <div class="cta-row">
+            <a href="#" class="btn light">Browse neighborhoods</a>
+            <a href="#" class="btn outline">List your property</a>
+          </div>
+
+          <ul class="trust" aria-label="Highlights">
+            <li>12k+ active listings</li>
+            <li>4.9★ average agent rating</li>
+            <li>Trusted by 1M+ home seekers</li>
+          </ul>
+        </div>
+      </div>
+      <div class="photo-credit" aria-hidden="true">Photo: Unsplash</div>
+    </section>
+  </main>
+</body>
+</html>
+
