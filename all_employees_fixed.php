@@ -594,7 +594,6 @@ $start_weekday = (int) $first_day->format('w');
 
                 <!-- Details Modal -->
                 <div x-show="detailsModalOpen" 
-                     @click.away="closeDetailsModal()"
                      @keydown.escape.window="closeDetailsModal()"
                      class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50" 
                      id="detailsModal" 
