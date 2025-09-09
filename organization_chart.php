@@ -55,6 +55,7 @@ if ($departments_query) {
             AND (LOWER(p.name) LIKE '%senior%' OR LOWER(p.name) LIKE '%lead%' OR LOWER(p.name) LIKE '%supervisor%')
             AND NOT (LOWER(p.name) LIKE '%manager%' OR LOWER(p.name) LIKE '%head%' OR LOWER(p.name) LIKE '%director%' OR LOWER(p.name) LIKE '%ceo%')
             ORDER BY u.name
+            LIMIT 10
         ");
         
         $senior_associates = [];
@@ -74,6 +75,7 @@ if ($departments_query) {
                 OR LOWER(p.name) LIKE '%ceo%' OR LOWER(p.name) LIKE '%senior%' OR LOWER(p.name) LIKE '%lead%' 
                 OR LOWER(p.name) LIKE '%supervisor%')
             ORDER BY u.name
+            LIMIT 10
         ");
         
         $associates = [];
@@ -96,9 +98,28 @@ if ($departments_query) {
 
 // Function to get status dot color
 function getStatusDot($status) {
-    if ($status === 'Available') return 'bg-green-500';
+    if ($status === 'Available') return 'bg-green-500 animate-pulse';
     if (in_array($status, ['Break 1', 'Break 2', 'Lunch Break', 'Personal Time'])) return 'bg-yellow-500';
     return 'bg-gray-400';
+}
+
+// Calculate total employees
+$totalEmployees = 1; // CEO
+foreach ($departments as $dept) {
+    $totalEmployees += $dept['total_members'];
+}
+
+// Count active employees
+$activeCount = 0;
+if ($ceo && $ceo['currect_status'] === 'Available') $activeCount++;
+foreach ($departments as $dept) {
+    if ($dept['manager'] && $dept['manager']['currect_status'] === 'Available') $activeCount++;
+    foreach ($dept['senior_associates'] as $s) {
+        if ($s['currect_status'] === 'Available') $activeCount++;
+    }
+    foreach ($dept['associates'] as $a) {
+        if ($a['currect_status'] === 'Available') $activeCount++;
+    }
 }
 ?>
 
@@ -108,16 +129,27 @@ function getStatusDot($status) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Company organizational chart">
+    <meta name="description" content="Interactive company organizational chart">
     <title>Organization Tree | Company Hierarchy</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
 
     <!-- Alpine.js -->
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -134,22 +166,40 @@ function getStatusDot($status) {
 
         body {
             font-family: 'Inter', sans-serif;
-            overflow-x: auto;
+            background: #f8fafc;
         }
 
-        /* Main container that takes exactly 100vh */
+        /* Main content area adjustment for sidebar */
+        .main-content {
+            transition: all 0.3s ease;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        @media (min-width: 1024px) {
+            .main-content {
+                margin-left: 16rem; /* 256px sidebar width */
+            }
+        }
+
+        @media (max-width: 1023px) {
+            .main-content {
+                margin-left: 0;
+            }
+        }
+
+        /* Tree container that accounts for header */
         .tree-container {
-            height: 100vh;
+            height: calc(100vh - 4rem); /* Subtract header height */
+            margin-top: 4rem; /* Header height */
             width: 100%;
-            min-width: 100vw;
             display: flex;
             flex-direction: column;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             position: relative;
-            overflow: auto;
+            overflow: hidden;
         }
 
-        /* Tree wrapper with scrolling if needed */
+        /* Tree wrapper with scrolling */
         .tree-wrapper {
             flex: 1;
             display: flex;
@@ -157,51 +207,74 @@ function getStatusDot($status) {
             align-items: center;
             padding: 20px;
             position: relative;
-            min-width: max-content;
-            margin: 0 auto;
+            overflow: auto;
+            min-width: 100%;
         }
 
         /* Profile circles */
         .profile-circle {
-            width: 60px;
-            height: 60px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border: 3px solid white;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             position: relative;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            transition: all 0.3s ease;
             background-size: cover;
             background-position: center;
+            background-color: white;
         }
 
         .profile-circle:hover {
-            transform: scale(1.1);
-            z-index: 10;
+            transform: scale(1.15) translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            z-index: 20;
         }
 
+        /* CEO special styling */
         .profile-circle.ceo {
-            width: 80px;
-            height: 80px;
+            width: 100px;
+            height: 100px;
             border: 4px solid #fbbf24;
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+            background: white;
         }
 
+        .ceo-title {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(251, 191, 36, 0.4);
+        }
+
+        /* Manager styling */
         .profile-circle.manager {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
             border: 3px solid #60a5fa;
+            box-shadow: 0 4px 15px rgba(96, 165, 250, 0.4);
         }
 
         /* Status indicator */
         .status-dot {
             position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 16px;
-            height: 16px;
+            bottom: -2px;
+            right: -2px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             border: 2px solid white;
+            z-index: 2;
         }
 
         /* Name labels */
@@ -210,52 +283,58 @@ function getStatusDot($status) {
             top: 100%;
             left: 50%;
             transform: translateX(-50%);
-            margin-top: 5px;
+            margin-top: 8px;
             background: white;
-            padding: 2px 8px;
-            border-radius: 12px;
+            padding: 3px 10px;
+            border-radius: 15px;
             font-size: 11px;
-            font-weight: 500;
+            font-weight: 600;
             white-space: nowrap;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
             color: #1f2937;
             z-index: 5;
         }
 
-        .role-label {
+        .name-label.ceo-name {
+            font-size: 13px;
+            padding: 4px 14px;
+            background: linear-gradient(135deg, #fff, #fef3c7);
+        }
+
+        /* Department label */
+        .dept-label {
             position: absolute;
-            top: -20px;
+            bottom: -28px;
             left: 50%;
             transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.9);
-            padding: 2px 6px;
-            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2px 8px;
+            border-radius: 10px;
             font-size: 9px;
             font-weight: 600;
             white-space: nowrap;
             color: #6366f1;
+            box-shadow: 0 2px 6px rgba(99, 102, 241, 0.2);
         }
 
-        /* Tree lines using SVG */
-        .tree-lines {
+        /* Role badges */
+        .role-badge {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 2px 6px;
+            border-radius: 8px;
+            font-size: 8px;
+            font-weight: 700;
+            white-space: nowrap;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .tree-lines svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .tree-line {
-            stroke: rgba(255, 255, 255, 0.4);
-            stroke-width: 2;
-            fill: none;
+        .senior-badge {
+            background: #10b981;
+            color: white;
         }
 
         /* Level containers */
@@ -269,12 +348,13 @@ function getStatusDot($status) {
         }
 
         .ceo-level {
-            margin-bottom: 60px;
+            margin-bottom: 80px;
+            padding-top: 20px;
         }
 
         .managers-level {
-            margin-bottom: 60px;
-            gap: 80px;
+            margin-bottom: 70px;
+            gap: 100px;
             flex-wrap: wrap;
         }
 
@@ -287,11 +367,11 @@ function getStatusDot($status) {
 
         .team-members {
             display: flex;
-            gap: 30px;
-            margin-top: 60px;
+            gap: 25px;
+            margin-top: 70px;
             flex-wrap: wrap;
             justify-content: center;
-            max-width: 300px;
+            max-width: 350px;
         }
 
         .member-wrapper {
@@ -301,123 +381,11 @@ function getStatusDot($status) {
             align-items: center;
         }
 
-        /* Department label */
-        .dept-label {
-            position: absolute;
-            bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.95);
-            padding: 3px 10px;
-            border-radius: 10px;
-            font-size: 10px;
-            font-weight: 600;
-            white-space: nowrap;
-            color: #4f46e5;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .profile-circle {
-                width: 45px;
-                height: 45px;
-            }
-
-            .profile-circle.ceo {
-                width: 60px;
-                height: 60px;
-            }
-
-            .profile-circle.manager {
-                width: 50px;
-                height: 50px;
-            }
-
-            .name-label {
-                font-size: 9px;
-                padding: 2px 6px;
-            }
-
-            .managers-level {
-                gap: 40px;
-            }
-
-            .team-members {
-                gap: 20px;
-            }
-
-            .tree-wrapper {
-                padding: 10px;
-            }
-        }
-
-        /* Tooltip on hover */
-        .tooltip {
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1f2937;
-            color: white;
-            padding: 6px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 20;
-            margin-bottom: 8px;
-        }
-
-        .profile-circle:hover .tooltip {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Header bar */
-        .header-bar {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .header-title {
-            color: white;
-            font-size: 18px;
-            font-weight: 600;
-        }
-
-        .legend {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: white;
-            font-size: 12px;
-        }
-
-        .legend-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        /* Connecting lines styles */
+        /* Connecting lines */
         .vertical-line {
             position: absolute;
             width: 2px;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.4);
             left: 50%;
             transform: translateX(-50%);
             z-index: 0;
@@ -426,242 +394,557 @@ function getStatusDot($status) {
         .horizontal-line {
             position: absolute;
             height: 2px;
-            background: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.4);
             z-index: 0;
         }
 
-        /* Branch indicator for seniors vs associates */
-        .senior-indicator {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #10b981;
-            color: white;
-            padding: 1px 6px;
-            border-radius: 6px;
-            font-size: 9px;
-            font-weight: 600;
+        /* Info bar */
+        .info-bar {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .associate-indicator {
+        .info-title {
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: white;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: white;
+            font-size: 12px;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        /* Tooltip */
+        .tooltip {
             position: absolute;
-            top: -15px;
+            bottom: 100%;
             left: 50%;
             transform: translateX(-50%);
-            background: #6b7280;
+            background: #1f2937;
             color: white;
-            padding: 1px 6px;
-            border-radius: 6px;
-            font-size: 9px;
-            font-weight: 600;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 30;
+            margin-bottom: 10px;
+            pointer-events: none;
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: #1f2937;
+        }
+
+        .profile-circle:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .tree-container {
+                height: calc(100vh - 3.5rem);
+                margin-top: 3.5rem;
+            }
+
+            .profile-circle {
+                width: 40px;
+                height: 40px;
+            }
+
+            .profile-circle.ceo {
+                width: 70px;
+                height: 70px;
+            }
+
+            .profile-circle.manager {
+                width: 45px;
+                height: 45px;
+            }
+
+            .name-label {
+                font-size: 9px;
+                padding: 2px 6px;
+            }
+
+            .name-label.ceo-name {
+                font-size: 11px;
+            }
+
+            .managers-level {
+                gap: 50px;
+            }
+
+            .team-members {
+                gap: 15px;
+            }
+
+            .info-bar {
+                padding: 10px 16px;
+            }
+
+            .info-title {
+                font-size: 16px;
+            }
+
+            .stats {
+                gap: 15px;
+            }
+
+            .stat-value {
+                font-size: 16px;
+            }
+
+            .stat-label {
+                font-size: 9px;
+            }
+
+            .legend {
+                display: none;
+            }
+        }
+
+        /* Mobile legend */
+        @media (max-width: 640px) {
+            .stats {
+                display: none;
+            }
+
+            .legend {
+                display: flex;
+                gap: 10px;
+            }
+
+            .legend-item {
+                font-size: 10px;
+            }
+        }
+
+        /* Scrollbar styling */
+        .tree-wrapper::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        .tree-wrapper::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .tree-wrapper::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .tree-wrapper::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Loading animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        /* Pulse animation for available status */
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
     </style>
 </head>
 
-<body x-data="{ showTooltips: false }">
-    <div class="tree-container">
-        <!-- Header -->
-        <div class="header-bar">
-            <h1 class="header-title">
-                <i class="fas fa-sitemap mr-2"></i>Organization Tree
-            </h1>
-            <div class="legend">
-                <div class="legend-item">
-                    <div class="legend-dot bg-green-500"></div>
-                    <span>Available</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot bg-yellow-500"></div>
-                    <span>Break</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot bg-gray-400"></div>
-                    <span>Offline</span>
-                </div>
-            </div>
-        </div>
+<body class="antialiased" x-data="{ sidebarOpen: false }">
+    
+    <?php include "header.php"; ?>
+    <?php include "sidebar.php"; ?>
 
-        <!-- Tree Wrapper -->
-        <div class="tree-wrapper">
-            <!-- CEO Level -->
-            <?php if ($ceo): ?>
-            <div class="level ceo-level">
-                <div class="member-wrapper">
-                    <div class="role-label">CEO</div>
-                    <div class="profile-circle ceo" 
-                         style="background-image: url('<?php echo !empty($ceo['img']) ? htmlspecialchars($ceo['img']) : 'https://ui-avatars.com/api/?name=' . urlencode($ceo['name']) . '&background=fbbf24&color=ffffff&size=80'; ?>')">
-                        <div class="status-dot <?php echo getStatusDot($ceo['currect_status']); ?>"></div>
-                        <div class="tooltip">
-                            <?php echo htmlspecialchars($ceo['post_name'] ?: 'Chief Executive Officer'); ?><br>
-                            ID: <?php echo htmlspecialchars($ceo['employee_id']); ?>
-                        </div>
-                    </div>
-                    <div class="name-label"><?php echo htmlspecialchars($ceo['name']); ?></div>
-                    
-                    <!-- Vertical line to managers -->
-                    <?php if (count($departments) > 0): ?>
-                    <div class="vertical-line" style="height: 60px; top: 100%;"></div>
-                    <?php endif; ?>
-                </div>
-            </div>
-            <?php endif; ?>
-
-            <!-- Managers Level with Departments -->
-            <?php if (count($departments) > 0): ?>
-            <div class="level managers-level">
-                <!-- Horizontal line connecting all managers -->
-                <?php if (count($departments) > 1): ?>
-                <div class="horizontal-line" style="width: calc(100% - 100px); top: -30px; left: 50px;"></div>
-                <?php endif; ?>
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <div class="tree-container">
+            <!-- Info Bar -->
+            <div class="info-bar">
+                <h1 class="info-title">
+                    <i class="fas fa-sitemap"></i>
+                    Organization Tree
+                </h1>
                 
-                <?php foreach ($departments as $index => $dept): ?>
-                <div class="department-group">
-                    <!-- Manager -->
-                    <?php if ($dept['manager']): ?>
+                <!-- Desktop Stats -->
+                <div class="stats hidden sm:flex">
+                    <div class="stat-item">
+                        <div class="stat-value"><?php echo count($departments); ?></div>
+                        <div class="stat-label">Departments</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value"><?php echo $totalEmployees; ?></div>
+                        <div class="stat-label">Employees</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value"><?php echo $activeCount; ?></div>
+                        <div class="stat-label">Active Now</div>
+                    </div>
+                </div>
+
+                <!-- Legend -->
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-dot bg-green-500"></div>
+                        <span>Available</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot bg-yellow-500"></div>
+                        <span>Break</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot bg-gray-400"></div>
+                        <span>Offline</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tree Wrapper -->
+            <div class="tree-wrapper">
+                <!-- CEO Level -->
+                <?php if ($ceo): ?>
+                <div class="level ceo-level fade-in">
                     <div class="member-wrapper">
-                        <!-- Vertical line from horizontal connector -->
-                        <div class="vertical-line" style="height: 30px; top: -30px;"></div>
-                        
-                        <div class="profile-circle manager" 
-                             style="background-image: url('<?php echo !empty($dept['manager']['img']) ? htmlspecialchars($dept['manager']['img']) : 'https://ui-avatars.com/api/?name=' . urlencode($dept['manager']['name']) . '&background=60a5fa&color=ffffff&size=70'; ?>')">
-                            <div class="status-dot <?php echo getStatusDot($dept['manager']['currect_status']); ?>"></div>
+                        <div class="ceo-title">
+                            <i class="fas fa-crown mr-1"></i>CEO
+                        </div>
+                        <div class="profile-circle ceo" 
+                             style="background-image: url('https://ui-avatars.com/api/?name=CEO&background=fbbf24&color=ffffff&size=100&bold=true')">
+                            <div class="status-dot <?php echo getStatusDot($ceo['currect_status']); ?>"></div>
                             <div class="tooltip">
-                                <?php echo htmlspecialchars($dept['manager']['post_name'] ?: 'Manager'); ?><br>
-                                ID: <?php echo htmlspecialchars($dept['manager']['employee_id']); ?>
+                                <strong><?php echo htmlspecialchars($ceo['post_name'] ?: 'Chief Executive Officer'); ?></strong><br>
+                                ID: <?php echo htmlspecialchars($ceo['employee_id']); ?><br>
+                                <?php if (!empty($ceo['email'])): ?>
+                                Email: <?php echo htmlspecialchars($ceo['email']); ?>
+                                <?php endif; ?>
                             </div>
                         </div>
-                        <div class="name-label"><?php echo htmlspecialchars($dept['manager']['name']); ?></div>
-                        <div class="dept-label"><?php echo htmlspecialchars($dept['name']); ?></div>
+                        <div class="name-label ceo-name"><?php echo htmlspecialchars($ceo['name']); ?></div>
                         
-                        <!-- Vertical line to team members -->
-                        <?php if (count($dept['senior_associates']) > 0 || count($dept['associates']) > 0): ?>
-                        <div class="vertical-line" style="height: 60px; top: 100%;"></div>
+                        <!-- Vertical line to managers -->
+                        <?php if (count($departments) > 0): ?>
+                        <div class="vertical-line" style="height: 80px; top: 100%;"></div>
                         <?php endif; ?>
                     </div>
-                    <?php else: ?>
+                </div>
+                <?php else: ?>
+                <div class="level ceo-level fade-in">
                     <div class="member-wrapper">
-                        <div class="vertical-line" style="height: 30px; top: -30px;"></div>
-                        <div class="profile-circle manager" style="background: #e5e7eb;">
-                            <i class="fas fa-user-plus" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #9ca3af;"></i>
+                        <div class="ceo-title">
+                            <i class="fas fa-crown mr-1"></i>CEO
                         </div>
-                        <div class="name-label">Vacant</div>
-                        <div class="dept-label"><?php echo htmlspecialchars($dept['name']); ?></div>
+                        <div class="profile-circle ceo" style="background: #f3f4f6;">
+                            <i class="fas fa-user-tie" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 40px; color: #9ca3af;"></i>
+                        </div>
+                        <div class="name-label ceo-name">Position Vacant</div>
                     </div>
+                </div>
+                <?php endif; ?>
+
+                <!-- Managers Level -->
+                <?php if (count($departments) > 0): ?>
+                <div class="level managers-level fade-in" style="animation-delay: 0.2s;">
+                    <!-- Horizontal line connecting managers -->
+                    <?php if (count($departments) > 1): ?>
+                    <div class="horizontal-line" style="width: calc(100% - 150px); top: -40px; left: 75px;"></div>
                     <?php endif; ?>
                     
-                    <!-- Team Members (Seniors and Associates) -->
-                    <?php if (count($dept['senior_associates']) > 0 || count($dept['associates']) > 0): ?>
-                    <div class="team-members">
-                        <!-- Horizontal line for team members -->
-                        <?php 
-                        $totalMembers = count($dept['senior_associates']) + count($dept['associates']);
-                        if ($totalMembers > 1): 
-                        ?>
-                        <div class="horizontal-line" style="width: calc(100% - 30px); top: -30px; left: 15px;"></div>
+                    <?php foreach ($departments as $index => $dept): ?>
+                    <div class="department-group">
+                        <!-- Manager -->
+                        <?php if ($dept['manager']): ?>
+                        <div class="member-wrapper">
+                            <!-- Vertical line from horizontal connector -->
+                            <div class="vertical-line" style="height: 40px; top: -40px;"></div>
+                            
+                            <div class="profile-circle manager" 
+                                 style="background-image: url('<?php echo !empty($dept['manager']['img']) ? htmlspecialchars($dept['manager']['img']) : 'https://ui-avatars.com/api/?name=' . urlencode($dept['manager']['name']) . '&background=60a5fa&color=ffffff&size=60'; ?>')">
+                                <div class="status-dot <?php echo getStatusDot($dept['manager']['currect_status']); ?>"></div>
+                                <div class="tooltip">
+                                    <strong><?php echo htmlspecialchars($dept['manager']['post_name'] ?: 'Department Manager'); ?></strong><br>
+                                    ID: <?php echo htmlspecialchars($dept['manager']['employee_id']); ?><br>
+                                    Department: <?php echo htmlspecialchars($dept['name']); ?>
+                                </div>
+                            </div>
+                            <div class="name-label"><?php echo htmlspecialchars($dept['manager']['name']); ?></div>
+                            <div class="dept-label"><?php echo htmlspecialchars($dept['name']); ?></div>
+                            
+                            <!-- Vertical line to team -->
+                            <?php if (count($dept['senior_associates']) > 0 || count($dept['associates']) > 0): ?>
+                            <div class="vertical-line" style="height: 70px; top: 100%;"></div>
+                            <?php endif; ?>
+                        </div>
+                        <?php else: ?>
+                        <div class="member-wrapper">
+                            <div class="vertical-line" style="height: 40px; top: -40px;"></div>
+                            <div class="profile-circle manager" style="background: #e5e7eb;">
+                                <i class="fas fa-user-plus" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #9ca3af; font-size: 20px;"></i>
+                            </div>
+                            <div class="name-label">Vacant Position</div>
+                            <div class="dept-label"><?php echo htmlspecialchars($dept['name']); ?></div>
+                        </div>
                         <?php endif; ?>
                         
-                        <!-- Senior Associates -->
-                        <?php foreach ($dept['senior_associates'] as $senior): ?>
-                        <div class="member-wrapper">
-                            <div class="vertical-line" style="height: 30px; top: -30px;"></div>
-                            <div class="senior-indicator">SR</div>
-                            <div class="profile-circle" 
-                                 style="background-image: url('<?php echo !empty($senior['img']) ? htmlspecialchars($senior['img']) : 'https://ui-avatars.com/api/?name=' . urlencode($senior['name']) . '&background=10b981&color=ffffff&size=60'; ?>')">
-                                <div class="status-dot <?php echo getStatusDot($senior['currect_status']); ?>"></div>
-                                <div class="tooltip">
-                                    <?php echo htmlspecialchars($senior['post_name'] ?: 'Senior Associate'); ?><br>
-                                    ID: <?php echo htmlspecialchars($senior['employee_id']); ?>
+                        <!-- Team Members -->
+                        <?php if (count($dept['senior_associates']) > 0 || count($dept['associates']) > 0): ?>
+                        <div class="team-members fade-in" style="animation-delay: <?php echo 0.3 + ($index * 0.1); ?>s;">
+                            <!-- Horizontal line for team -->
+                            <?php 
+                            $totalMembers = count($dept['senior_associates']) + count($dept['associates']);
+                            if ($totalMembers > 1): 
+                            ?>
+                            <div class="horizontal-line" style="width: calc(100% - 20px); top: -35px; left: 10px;"></div>
+                            <?php endif; ?>
+                            
+                            <!-- Senior Associates -->
+                            <?php foreach ($dept['senior_associates'] as $senior): ?>
+                            <div class="member-wrapper">
+                                <div class="vertical-line" style="height: 35px; top: -35px;"></div>
+                                <div class="role-badge senior-badge">SR</div>
+                                <div class="profile-circle" 
+                                     style="background-image: url('<?php echo !empty($senior['img']) ? htmlspecialchars($senior['img']) : 'https://ui-avatars.com/api/?name=' . urlencode($senior['name']) . '&background=10b981&color=ffffff&size=50'; ?>')">
+                                    <div class="status-dot <?php echo getStatusDot($senior['currect_status']); ?>"></div>
+                                    <div class="tooltip">
+                                        <strong><?php echo htmlspecialchars($senior['post_name'] ?: 'Senior Associate'); ?></strong><br>
+                                        ID: <?php echo htmlspecialchars($senior['employee_id']); ?>
+                                    </div>
                                 </div>
+                                <div class="name-label"><?php echo htmlspecialchars(explode(' ', $senior['name'])[0]); ?></div>
                             </div>
-                            <div class="name-label"><?php echo htmlspecialchars(explode(' ', $senior['name'])[0]); ?></div>
-                        </div>
-                        <?php endforeach; ?>
-                        
-                        <!-- Associates -->
-                        <?php foreach ($dept['associates'] as $associate): ?>
-                        <div class="member-wrapper">
-                            <div class="vertical-line" style="height: 30px; top: -30px;"></div>
-                            <div class="profile-circle" 
-                                 style="background-image: url('<?php echo !empty($associate['img']) ? htmlspecialchars($associate['img']) : 'https://ui-avatars.com/api/?name=' . urlencode($associate['name']) . '&background=6b7280&color=ffffff&size=60'; ?>')">
-                                <div class="status-dot <?php echo getStatusDot($associate['currect_status']); ?>"></div>
-                                <div class="tooltip">
-                                    <?php echo htmlspecialchars($associate['post_name'] ?: 'Associate'); ?><br>
-                                    ID: <?php echo htmlspecialchars($associate['employee_id']); ?>
+                            <?php endforeach; ?>
+                            
+                            <!-- Associates -->
+                            <?php foreach ($dept['associates'] as $associate): ?>
+                            <div class="member-wrapper">
+                                <div class="vertical-line" style="height: 35px; top: -35px;"></div>
+                                <div class="profile-circle" 
+                                     style="background-image: url('<?php echo !empty($associate['img']) ? htmlspecialchars($associate['img']) : 'https://ui-avatars.com/api/?name=' . urlencode($associate['name']) . '&background=6b7280&color=ffffff&size=50'; ?>')">
+                                    <div class="status-dot <?php echo getStatusDot($associate['currect_status']); ?>"></div>
+                                    <div class="tooltip">
+                                        <strong><?php echo htmlspecialchars($associate['post_name'] ?: 'Associate'); ?></strong><br>
+                                        ID: <?php echo htmlspecialchars($associate['employee_id']); ?>
+                                    </div>
                                 </div>
+                                <div class="name-label"><?php echo htmlspecialchars(explode(' ', $associate['name'])[0]); ?></div>
                             </div>
-                            <div class="name-label"><?php echo htmlspecialchars(explode(' ', $associate['name'])[0]); ?></div>
+                            <?php endforeach; ?>
                         </div>
-                        <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
-                    <?php endif; ?>
+                    <?php endforeach; ?>
                 </div>
-                <?php endforeach; ?>
+                <?php endif; ?>
+
+                <!-- Empty State -->
+                <?php if (count($departments) == 0): ?>
+                <div class="text-center text-white mt-20">
+                    <i class="fas fa-users text-6xl opacity-50 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">No Departments Found</h3>
+                    <p class="opacity-80">Start by creating departments and assigning employees</p>
+                </div>
+                <?php endif; ?>
             </div>
-            <?php endif; ?>
         </div>
-    </div>
+    </main>
 
     <script>
-        // Add interactive features
         document.addEventListener('DOMContentLoaded', function() {
-            // Add click to view details
-            document.querySelectorAll('.profile-circle').forEach(circle => {
-                circle.addEventListener('click', function() {
-                    // Could open a modal or side panel with employee details
-                    const name = this.nextElementSibling?.textContent || 'Unknown';
-                    console.log('Clicked on:', name);
-                });
-            });
-
-            // Smooth scroll for overflow
+            // Handle sidebar toggle for responsive view
+            const mainContent = document.querySelector('.main-content');
+            
+            // Add smooth scroll for tree wrapper
             const treeWrapper = document.querySelector('.tree-wrapper');
             let isDown = false;
             let startX;
             let scrollLeft;
+            let startY;
+            let scrollTop;
 
-            treeWrapper.addEventListener('mousedown', (e) => {
-                // Only activate if clicking on empty space, not on profile circles
-                if (e.target === treeWrapper || e.target.classList.contains('level')) {
-                    isDown = true;
-                    treeWrapper.style.cursor = 'grabbing';
-                    startX = e.pageX - treeWrapper.offsetLeft;
-                    scrollLeft = treeWrapper.scrollLeft;
+            if (treeWrapper) {
+                // Mouse drag to scroll
+                treeWrapper.addEventListener('mousedown', (e) => {
+                    // Only activate on empty space or with shift key
+                    if (e.shiftKey || (!e.target.classList.contains('profile-circle') && !e.target.closest('.profile-circle'))) {
+                        isDown = true;
+                        treeWrapper.style.cursor = 'grabbing';
+                        startX = e.pageX - treeWrapper.offsetLeft;
+                        startY = e.pageY - treeWrapper.offsetTop;
+                        scrollLeft = treeWrapper.scrollLeft;
+                        scrollTop = treeWrapper.scrollTop;
+                        e.preventDefault();
+                    }
+                });
+
+                treeWrapper.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    treeWrapper.style.cursor = 'grab';
+                });
+
+                treeWrapper.addEventListener('mouseup', () => {
+                    isDown = false;
+                    treeWrapper.style.cursor = 'grab';
+                });
+
+                treeWrapper.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - treeWrapper.offsetLeft;
+                    const y = e.pageY - treeWrapper.offsetTop;
+                    const walkX = (x - startX) * 1.5;
+                    const walkY = (y - startY) * 1.5;
+                    treeWrapper.scrollLeft = scrollLeft - walkX;
+                    treeWrapper.scrollTop = scrollTop - walkY;
+                });
+
+                // Touch support for mobile
+                let touchStartX = 0;
+                let touchStartY = 0;
+                let touchScrollLeft = 0;
+                let touchScrollTop = 0;
+
+                treeWrapper.addEventListener('touchstart', (e) => {
+                    touchStartX = e.touches[0].pageX;
+                    touchStartY = e.touches[0].pageY;
+                    touchScrollLeft = treeWrapper.scrollLeft;
+                    touchScrollTop = treeWrapper.scrollTop;
+                }, { passive: true });
+
+                treeWrapper.addEventListener('touchmove', (e) => {
+                    const touchX = e.touches[0].pageX;
+                    const touchY = e.touches[0].pageY;
+                    const walkX = (touchStartX - touchX);
+                    const walkY = (touchStartY - touchY);
+                    treeWrapper.scrollLeft = touchScrollLeft + walkX;
+                    treeWrapper.scrollTop = touchScrollTop + walkY;
+                }, { passive: true });
+            }
+
+            // Add click handlers for profile circles
+            document.querySelectorAll('.profile-circle').forEach(circle => {
+                circle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    // Could open employee details modal here
+                    const tooltip = this.querySelector('.tooltip');
+                    if (tooltip) {
+                        const name = this.nextElementSibling?.textContent || 'Unknown';
+                        console.log('Employee clicked:', name);
+                    }
+                });
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (!treeWrapper) return;
+                
+                const scrollAmount = 50;
+                switch(e.key) {
+                    case 'ArrowLeft':
+                        treeWrapper.scrollLeft -= scrollAmount;
+                        break;
+                    case 'ArrowRight':
+                        treeWrapper.scrollLeft += scrollAmount;
+                        break;
+                    case 'ArrowUp':
+                        treeWrapper.scrollTop -= scrollAmount;
+                        break;
+                    case 'ArrowDown':
+                        treeWrapper.scrollTop += scrollAmount;
+                        break;
                 }
             });
 
-            treeWrapper.addEventListener('mouseleave', () => {
-                isDown = false;
-                treeWrapper.style.cursor = 'grab';
-            });
-
-            treeWrapper.addEventListener('mouseup', () => {
-                isDown = false;
-                treeWrapper.style.cursor = 'grab';
-            });
-
-            treeWrapper.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - treeWrapper.offsetLeft;
-                const walk = (x - startX) * 2;
-                treeWrapper.scrollLeft = scrollLeft - walk;
-            });
-
-            // Touch support for mobile
-            let touchStartX = 0;
-            let touchScrollLeft = 0;
-
-            treeWrapper.addEventListener('touchstart', (e) => {
-                touchStartX = e.touches[0].pageX;
-                touchScrollLeft = treeWrapper.scrollLeft;
-            });
-
-            treeWrapper.addEventListener('touchmove', (e) => {
-                const touchX = e.touches[0].pageX;
-                const walk = (touchStartX - touchX) * 2;
-                treeWrapper.scrollLeft = touchScrollLeft + walk;
-            });
+            // Center the tree on load
+            if (treeWrapper) {
+                setTimeout(() => {
+                    const treeContent = treeWrapper.firstElementChild;
+                    if (treeContent) {
+                        const contentWidth = treeContent.offsetWidth;
+                        const wrapperWidth = treeWrapper.offsetWidth;
+                        if (contentWidth > wrapperWidth) {
+                            treeWrapper.scrollLeft = (contentWidth - wrapperWidth) / 2;
+                        }
+                    }
+                }, 100);
+            }
         });
     </script>
 </body>
