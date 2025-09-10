@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indigo Road Realty - Guiding Your Journey Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hexagon {
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+        }
+        .logo-hexagon {
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            border: 2px solid white;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section Container -->
+    <div class="relative min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden" style="background-image: url('https://indigoroadrealty.com/wp-content/uploads/2023/10/hp-slide-1-a.jpg');">
+        
+        <!-- Overlay for better text readability -->
+        <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
+        
+        <!-- Navbar -->
+        <nav class="relative z-20 bg-transparent">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <!-- Navigation Links -->
+                    <div class="flex items-center space-x-8">
+                        <a href="#" class="text-white hover:text-gray-300 transition duration-300 font-medium text-sm tracking-wider">PROPERTIES</a>
+                        <a href="#" class="text-white hover:text-gray-300 transition duration-300 font-medium text-sm tracking-wider">BUYING</a>
+                        <a href="#" class="text-white hover:text-gray-300 transition duration-300 font-medium text-sm tracking-wider">SELLING</a>
+                        <a href="#" class="text-white hover:text-gray-300 transition duration-300 font-medium text-sm tracking-wider">OUR COMPANY</a>
+                        <a href="#" class="text-white hover:text-gray-300 transition duration-300 font-medium text-sm tracking-wider">RESOURCES</a>
+                        <a href="#" class="text-white hover:text-gray-300 transition duration-300 font-medium text-sm tracking-wider">CONTACT US</a>
+                    </div>
+                    
+                    <!-- Sign Up Button -->
+                    <button class="bg-rose-300/80 text-white px-6 py-2 rounded-md font-medium hover:bg-rose-400/80 transition duration-300 text-sm tracking-wider">
+                        SIGN UP
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 container mx-auto px-6 flex items-center min-h-[calc(100vh-80px)]">
+            <div class="grid grid-cols-12 gap-8 items-end w-full">
+                
+                <!-- Left Side - Text Content and Logo -->
+                <div class="col-span-12 lg:col-span-5 text-white space-y-6 pb-20">
+                    <!-- Hexagonal Logo -->
+                    <div class="flex items-center justify-start mb-8">
+                        <div class="relative w-32 h-32 logo-hexagon bg-transparent border-2 border-white flex items-center justify-center">
+                            <div class="text-center">
+                                <span class="text-3xl font-light">I</span>
+                                <div class="border-t border-white mx-4 my-1"></div>
+                                <span class="text-3xl font-light">R</span>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h1 class="text-5xl font-light tracking-wider">INDIGO</h1>
+                            <h1 class="text-5xl font-light tracking-wider">ROAD</h1>
+                            <p class="text-2xl font-light tracking-widest">REALTY</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Tagline -->
+                    <div class="space-y-2">
+                        <p class="text-lg tracking-wider font-light">BY EGYPT SHERROD</p>
+                        <h2 class="text-3xl md:text-4xl font-light tracking-widest">GUIDING YOUR JOURNEY HOME</h2>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex gap-6 pt-8">
+                        <!-- Search for My Home -->
+                        <div class="text-center group cursor-pointer">
+                            <div class="hexagon bg-transparent border-2 border-white w-24 h-24 flex items-center justify-center hover:bg-white/20 transition duration-300">
+                                <i class="fas fa-search text-white text-2xl"></i>
+                            </div>
+                            <p class="text-xs mt-2 uppercase tracking-wider">SEARCH FOR</p>
+                            <p class="text-xs uppercase tracking-wider font-semibold">MY HOME</p>
+                        </div>
+                        
+                        <!-- Sell My Home -->
+                        <div class="text-center group cursor-pointer">
+                            <div class="hexagon bg-transparent border-2 border-white w-24 h-24 flex items-center justify-center hover:bg-white/20 transition duration-300">
+                                <i class="fas fa-home text-white text-2xl"></i>
+                            </div>
+                            <p class="text-xs mt-2 uppercase tracking-wider">SELL</p>
+                            <p class="text-xs uppercase tracking-wider font-semibold">MY HOME</p>
+                        </div>
+                        
+                        <!-- Schedule a Call -->
+                        <div class="text-center group cursor-pointer">
+                            <div class="hexagon bg-transparent border-2 border-white w-24 h-24 flex items-center justify-center hover:bg-white/20 transition duration-300">
+                                <i class="fas fa-phone text-white text-2xl"></i>
+                            </div>
+                            <p class="text-xs mt-2 uppercase tracking-wider">SCHEDULE</p>
+                            <p class="text-xs uppercase tracking-wider font-semibold">A CALL</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Middle Space -->
+                <div class="col-span-12 lg:col-span-5"></div>
+                
+                <!-- Right Side - Agent Image and Name -->
+                <div class="col-span-12 lg:col-span-2 relative">
+                    <!-- Agent Image positioned at bottom -->
+                    <div class="absolute bottom-0 right-0 lg:relative">
+                        <img 
+                            src="https://indigoroadrealty.com/wp-content/uploads/2023/10/egypt-sherrod-cutout.png" 
+                            alt="Egypt Sherrod" 
+                            class="w-full max-w-sm lg:max-w-md object-contain"
+                            style="height: auto; max-height: 600px;"
+                        >
+                        <!-- Agent Name Signature -->
+                        <div class="absolute bottom-10 left-0 text-white">
+                            <p class="text-4xl font-signature italic">Egypt</p>
+                            <p class="text-3xl font-signature italic ml-8">Sherrod</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Social Media Icons - Fixed on Right Side -->
+        <div class="fixed right-4 top-1/2 transform -translate-y-1/2 z-20 flex flex-col space-y-4">
+            <a href="#" class="text-white hover:text-gray-300 transition duration-300 bg-black/30 p-3 rounded-full backdrop-blur-sm">
+                <i class="fab fa-facebook-f text-lg"></i>
+            </a>
+            <a href="#" class="text-white hover:text-gray-300 transition duration-300 bg-black/30 p-3 rounded-full backdrop-blur-sm">
+                <i class="fab fa-twitter text-lg"></i>
+            </a>
+            <a href="#" class="text-white hover:text-gray-300 transition duration-300 bg-black/30 p-3 rounded-full backdrop-blur-sm">
+                <i class="fab fa-linkedin-in text-lg"></i>
+            </a>
+            <a href="#" class="text-white hover:text-gray-300 transition duration-300 bg-black/30 p-3 rounded-full backdrop-blur-sm">
+                <i class="fab fa-instagram text-lg"></i>
+            </a>
+        </div>
+        
+        <!-- Follow Us Text - Vertical on Right -->
+        <div class="fixed right-6 bottom-20 z-20">
+            <p class="text-white text-xs tracking-widest transform rotate-90 origin-bottom-right">FOLLOW US</p>
+        </div>
+        
+        <!-- Optional: Decorative Elements -->
+        <div class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-black/30 to-transparent"></div>
+    </div>
+</body>
+</html>
