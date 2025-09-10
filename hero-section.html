@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate Hero Section</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <!-- Hero Section Container -->
+    <div class="relative min-h-screen bg-cover bg-center bg-no-repeat" style="background-image: url('https://indigoroadrealty.com/wp-content/uploads/2023/10/hp-slide-1-a.jpg');">
+        
+        <!-- Overlay for better text readability -->
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+        
+        <!-- Navbar -->
+        <nav class="relative z-10 bg-transparent">
+            <div class="container mx-auto px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <!-- Logo/Brand -->
+                    <div class="text-white text-2xl font-bold">
+                        <span class="text-3xl">INDIGO ROAD</span>
+                        <span class="text-sm block">REALTY</span>
+                    </div>
+                    
+                    <!-- Navigation Links -->
+                    <div class="hidden md:flex items-center space-x-8">
+                        <a href="#" class="text-white hover:text-gray-300 transition duration-300 font-medium">PROPERTIES</a>
+                        <a href="#" class="text-white hover:text-gray-300 transition duration-300 font-medium">BUYING</a>
+                        <a href="#" class="text-white hover:text-gray-300 transition duration-300 font-medium">SELLING</a>
+                        <a href="#" class="text-white hover:text-gray-300 transition duration-300 font-medium">OUR COMPANY</a>
+                        <a href="#" class="text-white hover:text-gray-300 transition duration-300 font-medium">RESOURCES</a>
+                        <a href="#" class="text-white hover:text-gray-300 transition duration-300 font-medium">CONTACT US</a>
+                        <button class="bg-white text-gray-800 px-6 py-2 rounded-md font-medium hover:bg-gray-100 transition duration-300">SIGN UP</button>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button class="md:hidden text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 container mx-auto px-6 flex items-center min-h-[calc(100vh-80px)]">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center w-full">
+                
+                <!-- Left Side - Text Content -->
+                <div class="text-white space-y-6">
+                    <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                        Find Your
+                        <span class="block text-yellow-400">Dream Home</span>
+                        Today
+                    </h1>
+                    
+                    <p class="text-xl md:text-2xl text-gray-200 leading-relaxed">
+                        Your trusted partner in real estate. We help you discover the perfect property that matches your lifestyle and budget.
+                    </p>
+                    
+                    <div class="space-y-4">
+                        <p class="text-lg text-gray-300">
+                            ✓ Expert Local Knowledge<br>
+                            ✓ Personalized Service<br>
+                            ✓ Proven Track Record
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <button class="bg-yellow-400 text-gray-900 px-8 py-4 rounded-lg font-bold text-lg hover:bg-yellow-300 transition duration-300 shadow-lg">
+                            Browse Properties
+                        </button>
+                        <button class="border-2 border-white text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-white hover:text-gray-900 transition duration-300">
+                            Schedule Consultation
+                        </button>
+                    </div>
+                    
+                    <div class="pt-6">
+                        <p class="text-sm text-gray-300 mb-2">TRUSTED BY OVER</p>
+                        <p class="text-4xl font-bold text-yellow-400">1,000+ <span class="text-white text-2xl">Happy Clients</span></p>
+                    </div>
+                </div>
+                
+                <!-- Right Side - Agent Image -->
+                <div class="relative flex justify-center lg:justify-end">
+                    <img 
+                        src="https://indigoroadrealty.com/wp-content/themes/egyptsherrodrealestate-newcom/assets/images/hp-slider-agent-photo-opti.png" 
+                        alt="Real Estate Agent" 
+                        class="w-full max-w-md lg:max-w-lg xl:max-w-xl object-contain"
+                    >
+                    
+                    <!-- Floating Card Near Agent -->
+                    <div class="absolute bottom-10 left-0 bg-white rounded-lg shadow-2xl p-4 max-w-xs hidden lg:block">
+                        <div class="flex items-center space-x-3">
+                            <div class="bg-yellow-400 rounded-full p-3">
+                                <svg class="w-6 h-6 text-gray-900" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-600">Call Us Today</p>
+                                <p class="font-bold text-gray-900">(555) 123-4567</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Down Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
+        </div>
+    </div>
+</body>
+</html>
