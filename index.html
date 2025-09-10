@@ -174,11 +174,11 @@
 
     <!-- Hero Section Container -->
     <div class="relative min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden parallax-bg" 
-         style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');">
+         style="background-image: url('https://indigoroadrealty.com/wp-content/uploads/2023/10/hp-slide-1-a.jpg');">
         
         <!-- Animated Background Overlays -->
-        <div class="absolute inset-0 bg-gradient-to-br from-indigo-900/30 via-transparent to-rose-900/30"></div>
-        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-black/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-indigo-900/20 to-rose-900/20"></div>
         
         <!-- Navigation Bar -->
         <nav class="relative z-20 bg-transparent">
@@ -323,19 +323,26 @@
                 <!-- Right Side - Agent Image -->
                 <div class="relative h-full hidden lg:flex items-end justify-end slide-in-right">
                     <div class="relative">
-                        <!-- Placeholder for Agent Image -->
+                        <!-- Agent Image -->
                         <div class="relative w-full max-w-lg xl:max-w-2xl">
-                            <!-- Image Placeholder with Gradient -->
-                            <div class="relative h-[500px] xl:h-[700px] bg-gradient-to-t from-rose-500/20 to-transparent rounded-t-full">
-                                <!-- Decorative Elements -->
-                                <div class="absolute top-20 right-10 w-32 h-32 bg-rose-500/20 rounded-full blur-2xl animate-pulse"></div>
-                                <div class="absolute bottom-40 left-10 w-24 h-24 bg-indigo-500/20 rounded-full blur-xl animate-pulse" style="animation-delay: 1s;"></div>
-                                
-                                <!-- Agent Silhouette (Placeholder) -->
+                            <img 
+                                src="images/shannel_hero.png" 
+                                alt="Egypt Sherrod" 
+                                class="w-full max-w-2xl lg:max-w-3xl xl:max-w-4xl object-contain relative z-10"
+                                style="height: auto; max-height: 900px;"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
+                            >
+                            
+                            <!-- Fallback if image doesn't load -->
+                            <div class="relative h-[500px] xl:h-[700px] bg-gradient-to-t from-rose-500/20 to-transparent rounded-t-full" style="display: none;">
                                 <div class="absolute inset-0 flex items-end justify-center">
                                     <div class="w-64 h-96 bg-gradient-to-t from-gray-800/50 to-transparent rounded-t-full"></div>
                                 </div>
                             </div>
+                            
+                            <!-- Decorative Background Elements -->
+                            <div class="absolute top-20 right-10 w-32 h-32 bg-rose-500/20 rounded-full blur-2xl animate-pulse"></div>
+                            <div class="absolute bottom-40 left-10 w-24 h-24 bg-indigo-500/20 rounded-full blur-xl animate-pulse" style="animation-delay: 1s;"></div>
                             
                             <!-- Agent Name Signature -->
                             <div class="absolute bottom-10 left-0 text-white z-20">
@@ -555,7 +562,8 @@
 
         // Preload background images
         preloadImages([
-            'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80'
+            'https://indigoroadrealty.com/wp-content/uploads/2023/10/hp-slide-1-a.jpg',
+            'images/shannel_hero.png'
         ]);
 
         // Add keyboard navigation
