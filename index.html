@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guiding Your Journey Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hexagon {
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+        }
+        .logo-hexagon {
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            border: 2px solid white;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .slide-in-right {
+            animation: slideInRight 1s ease-out 0.3s both;
+        }
+        .font-signature {
+            font-family: 'Brush Script MT', cursive;
+        }
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        /* Mobile menu styles */
+        .mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu.active {
+            transform: translateX(0);
+        }
+        
+        /* Ensure hero is exactly 100vh on desktop */
+        @media (min-width: 1024px) {
+            .hero-container {
+                height: 100vh;
+                max-height: 100vh;
+            }
+        }
+        
+        /* Mobile adjustments */
+        @media (max-width: 767px) {
+            .hero-container {
+                min-height: 100vh;
+                height: auto;
+            }
+            .hexagon, .logo-hexagon {
+                clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            }
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <!-- Hero Section Container -->
+    <div class="hero-container relative h-screen lg:h-screen bg-cover bg-center bg-no-repeat overflow-hidden" style="background-image: url('https://indigoroadrealty.com/wp-content/uploads/2023/10/hp-slide-1-a.jpg');">
+        
+        <!-- Animated Background Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-black/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-indigo-900/20 to-rose-900/20"></div>
+        
+        <!-- Navbar -->
+        <nav class="relative z-20 bg-transparent">
+            <div class="container mx-auto px-4 sm:px-6 py-4 lg:py-6">
+                <div class="flex items-center justify-between">
+                    <!-- Mobile Menu Button -->
+                    <div class="lg:hidden">
+                        <button id="mobileMenuBtn" class="text-white text-2xl p-2">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Desktop Navigation Links -->
+                    <div class="hidden lg:flex items-center space-x-6 xl:space-x-10">
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-xs xl:text-sm tracking-wider relative group">
+                            PROPERTIES
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-300 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-xs xl:text-sm tracking-wider relative group">
+                            BUYING
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-300 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-xs xl:text-sm tracking-wider relative group">
+                            SELLING
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-300 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-xs xl:text-sm tracking-wider relative group">
+                            OUR COMPANY
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-300 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-xs xl:text-sm tracking-wider relative group">
+                            RESOURCES
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-300 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-xs xl:text-sm tracking-wider relative group">
+                            CONTACT US
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-300 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                    </div>
+                    
+                    <!-- Sign Up Button -->
+                    <button class="bg-rose-400/90 hover:bg-rose-500 text-white px-4 sm:px-6 lg:px-8 py-2 lg:py-3 rounded-full font-medium transition duration-300 text-xs sm:text-sm tracking-wider shadow-lg hover:shadow-xl transform hover:scale-105">
+                        SIGN UP
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu fixed top-0 right-0 w-64 h-full bg-black/95 z-50 lg:hidden">
+                <div class="p-6">
+                    <button id="closeMobileMenu" class="text-white text-2xl mb-8">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div class="flex flex-col space-y-6">
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-sm tracking-wider">PROPERTIES</a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-sm tracking-wider">BUYING</a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-sm tracking-wider">SELLING</a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-sm tracking-wider">OUR COMPANY</a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-sm tracking-wider">RESOURCES</a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-sm tracking-wider">CONTACT US</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 container mx-auto px-4 sm:px-6 flex items-center h-[calc(100vh-80px)] lg:h-[calc(100vh-100px)]">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-center lg:items-end w-full">
+                
+                <!-- Left Side - Text Content and Logo -->
+                <div class="col-span-1 lg:col-span-6 text-white space-y-4 sm:space-y-6 lg:space-y-8 pb-8 lg:pb-20 fade-in-up">
+                    <!-- Hexagonal Logo -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center sm:justify-start mb-6 lg:mb-12">
+                        <div class="relative w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 logo-hexagon bg-transparent border-3 border-white flex items-center justify-center hover-glow float-animation mb-4 sm:mb-0">
+                            <div class="text-center">
+                                <span class="text-2xl sm:text-3xl lg:text-4xl font-light tracking-wider">I</span>
+                                <div class="border-t border-white mx-3 sm:mx-4 lg:mx-6 my-1 lg:my-2"></div>
+                                <span class="text-2xl sm:text-3xl lg:text-4xl font-light tracking-wider">R</span>
+                            </div>
+                        </div>
+                        <div class="text-center sm:text-left sm:ml-4 lg:ml-6">
+                            <h1 class="text-3xl sm:text-4xl lg:text-6xl xl:text-7xl font-light tracking-wider">INDIGO</h1>
+                            <h1 class="text-3xl sm:text-4xl lg:text-6xl xl:text-7xl font-light tracking-wider">ROAD</h1>
+                            <p class="text-xl sm:text-2xl lg:text-3xl font-light tracking-widest text-rose-300">REALTY</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Tagline -->
+                    <div class="space-y-2 sm:space-y-3 lg:space-y-4 text-center sm:text-left">
+                        <p class="text-sm sm:text-base lg:text-xl tracking-wider font-light text-rose-300">BY EGYPT SHERROD</p>
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-light tracking-widest leading-tight">
+                            GUIDING YOUR<br>
+                            <span class="text-rose-300">JOURNEY</span> HOME
+                        </h2>
+                        <p class="text-sm sm:text-base lg:text-lg text-gray-200 max-w-2xl leading-relaxed mx-auto sm:mx-0">
+                            Experience luxury real estate with personalized service and unmatched expertise in finding your perfect home.
+                        </p>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap justify-center sm:justify-start gap-4 sm:gap-6 lg:gap-8 pt-6 lg:pt-12">
+                        <!-- Search for My Home -->
+                        <div class="text-center group cursor-pointer transform hover:scale-110 transition-all duration-300">
+                            <div class="hexagon bg-transparent border-2 border-white w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 flex items-center justify-center hover:bg-rose-500/30 hover:border-rose-300 transition duration-300 hover-glow">
+                                <i class="fas fa-search text-white text-xl sm:text-2xl lg:text-3xl group-hover:text-rose-200"></i>
+                            </div>
+                            <p class="text-[10px] sm:text-xs mt-2 lg:mt-3 uppercase tracking-wider">SEARCH FOR</p>
+                            <p class="text-[10px] sm:text-xs uppercase tracking-wider font-bold text-rose-300">MY HOME</p>
+                        </div>
+                        
+                        <!-- Sell My Home -->
+                        <div class="text-center group cursor-pointer transform hover:scale-110 transition-all duration-300">
+                            <div class="hexagon bg-transparent border-2 border-white w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 flex items-center justify-center hover:bg-rose-500/30 hover:border-rose-300 transition duration-300 hover-glow">
+                                <i class="fas fa-home text-white text-xl sm:text-2xl lg:text-3xl group-hover:text-rose-200"></i>
+                            </div>
+                            <p class="text-[10px] sm:text-xs mt-2 lg:mt-3 uppercase tracking-wider">SELL</p>
+                            <p class="text-[10px] sm:text-xs uppercase tracking-wider font-bold text-rose-300">MY HOME</p>
+                        </div>
+                        
+                        <!-- Schedule a Call -->
+                        <div class="text-center group cursor-pointer transform hover:scale-110 transition-all duration-300">
+                            <div class="hexagon bg-transparent border-2 border-white w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 flex items-center justify-center hover:bg-rose-500/30 hover:border-rose-300 transition duration-300 hover-glow">
+                                <i class="fas fa-phone text-white text-xl sm:text-2xl lg:text-3xl group-hover:text-rose-200"></i>
+                            </div>
+                            <p class="text-[10px] sm:text-xs mt-2 lg:mt-3 uppercase tracking-wider">SCHEDULE</p>
+                            <p class="text-[10px] sm:text-xs uppercase tracking-wider font-bold text-rose-300">A CALL</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Side - Agent Image and Name -->
+                <div class="col-span-1 lg:col-span-6 relative h-full slide-in-right hidden lg:block">
+                    <!-- Agent Image positioned at bottom -->
+                    <div class="relative h-full flex items-end justify-end">
+                        <div class="relative">
+                            <img 
+                                src="images/shannel_hero.png" 
+                                alt="Egypt Sherrod" 
+                                class="w-full max-w-md xl:max-w-2xl 2xl:max-w-4xl object-contain relative z-10"
+                                style="height: auto; max-height: calc(100vh - 150px);"
+                            >
+                            <!-- Decorative Background Elements -->
+                            <div class="absolute top-20 right-10 w-32 h-32 bg-rose-500/20 rounded-full blur-2xl"></div>
+                            <div class="absolute bottom-40 left-10 w-24 h-24 bg-indigo-500/20 rounded-full blur-xl"></div>
+                            
+                            <!-- Agent Name Signature -->
+                            <div class="absolute bottom-10 lg:bottom-20 left-0 text-white z-20">
+                                <p class="text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-signature italic text-rose-300 drop-shadow-lg">Egypt</p>
+                                <p class="text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-signature italic ml-8 lg:ml-12 text-white drop-shadow-lg">Sherrod</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Agent Section -->
+                <div class="col-span-1 lg:hidden text-center mt-8">
+                    <div class="text-white">
+                        <p class="text-3xl sm:text-4xl font-signature italic text-rose-300 drop-shadow-lg">Egypt</p>
+                        <p class="text-2xl sm:text-3xl font-signature italic text-white drop-shadow-lg">Sherrod</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Social Media Icons - Fixed on Right Side (Hidden on mobile) -->
+        <div class="hidden lg:flex fixed right-6 top-1/2 transform -translate-y-1/2 z-30 flex-col space-y-4">
+            <a href="#" class="text-white hover:text-rose-300 transition-all duration-300 glass-effect p-4 rounded-full hover:scale-110 hover-glow group">
+                <i class="fab fa-facebook-f text-lg group-hover:animate-pulse"></i>
+            </a>
+            <a href="#" class="text-white hover:text-rose-300 transition-all duration-300 glass-effect p-4 rounded-full hover:scale-110 hover-glow group">
+                <i class="fab fa-twitter text-lg group-hover:animate-pulse"></i>
+            </a>
+            <a href="#" class="text-white hover:text-rose-300 transition-all duration-300 glass-effect p-4 rounded-full hover:scale-110 hover-glow group">
+                <i class="fab fa-linkedin-in text-lg group-hover:animate-pulse"></i>
+            </a>
+            <a href="#" class="text-white hover:text-rose-300 transition-all duration-300 glass-effect p-4 rounded-full hover:scale-110 hover-glow group">
+                <i class="fab fa-instagram text-lg group-hover:animate-pulse"></i>
+            </a>
+        </div>
+        
+        <!-- Mobile Social Media Icons - Bottom of screen -->
+        <div class="lg:hidden fixed bottom-4 left-0 right-0 z-30">
+            <div class="flex justify-center space-x-4">
+                <a href="#" class="text-white hover:text-rose-300 transition-all duration-300 glass-effect p-3 rounded-full">
+                    <i class="fab fa-facebook-f text-sm"></i>
+                </a>
+                <a href="#" class="text-white hover:text-rose-300 transition-all duration-300 glass-effect p-3 rounded-full">
+                    <i class="fab fa-twitter text-sm"></i>
+                </a>
+                <a href="#" class="text-white hover:text-rose-300 transition-all duration-300 glass-effect p-3 rounded-full">
+                    <i class="fab fa-linkedin-in text-sm"></i>
+                </a>
+                <a href="#" class="text-white hover:text-rose-300 transition-all duration-300 glass-effect p-3 rounded-full">
+                    <i class="fab fa-instagram text-sm"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Follow Us Text - Vertical on Right (Hidden on mobile) -->
+        <div class="hidden lg:block fixed right-8 bottom-32 z-20">
+            <div class="flex items-center">
+                <div class="w-px h-16 bg-white/50 mr-4"></div>
+                <p class="text-white text-xs tracking-widest transform rotate-90 origin-bottom-right font-light">FOLLOW US</p>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator (Hidden on mobile) -->
+        <div class="hidden sm:block absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 text-white text-center">
+            <div class="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-white rounded-full mt-2 animate-bounce"></div>
+            </div>
+            <p class="text-xs mt-2 tracking-wider">SCROLL DOWN</p>
+        </div>
+        
+        <!-- Decorative Elements (Hidden on mobile for performance) -->
+        <div class="hidden sm:block absolute top-20 left-10 w-2 h-2 bg-rose-300 rounded-full opacity-60 animate-ping"></div>
+        <div class="hidden sm:block absolute top-40 left-20 w-1 h-1 bg-white rounded-full opacity-40"></div>
+        <div class="hidden sm:block absolute bottom-60 left-32 w-3 h-3 border border-white/30 rotate-45"></div>
+        <div class="hidden sm:block absolute top-1/3 right-1/4 w-1 h-1 bg-rose-300 rounded-full opacity-60"></div>
+        
+        <!-- Bottom Gradient -->
+        <div class="absolute bottom-0 left-0 w-full h-20 sm:h-40 bg-gradient-to-t from-black/60 to-transparent"></div>
+        
+        <!-- Animated Particles (Hidden on mobile for performance) -->
+        <div class="hidden sm:block absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-1 h-1 bg-white/20 rounded-full animate-pulse"></div>
+            <div class="absolute top-3/4 right-1/3 w-2 h-2 bg-rose-300/30 rounded-full animate-bounce" style="animation-delay: 1s;"></div>
+            <div class="absolute bottom-1/3 left-1/2 w-1 h-1 bg-indigo-300/40 rounded-full animate-ping" style="animation-delay: 2s;"></div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scrolling and interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu functionality
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const closeMobileMenu = document.getElementById('closeMobileMenu');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            if (mobileMenuBtn && mobileMenu && closeMobileMenu) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    mobileMenu.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+                
+                closeMobileMenu.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+                
+                // Close menu when clicking outside
+                mobileMenu.addEventListener('click', function(e) {
+                    if (e.target === mobileMenu) {
+                        mobileMenu.classList.remove('active');
+                        document.body.style.overflow = '';
+                    }
+                });
+            }
+            
+            // Parallax effect for background (desktop only)
+            if (window.innerWidth > 768) {
+                window.addEventListener('scroll', function() {
+                    const scrolled = window.pageYOffset;
+                    const parallax = document.querySelector('.hero-container');
+                    if (parallax) {
+                        parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+                    }
+                });
+            }
+
+            // Hover effects for hexagon buttons
+            const hexButtons = document.querySelectorAll('.hexagon');
+            hexButtons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    if (window.innerWidth > 768) {
+                        this.style.transform = 'scale(1.1) rotate(5deg)';
+                    }
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    if (window.innerWidth > 768) {
+                        this.style.transform = 'scale(1) rotate(0deg)';
+                    }
+                });
+            });
+
+            // Add click handlers for CTA buttons
+            const ctaButtons = document.querySelectorAll('.group.cursor-pointer');
+            ctaButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Add your navigation logic here
+                    console.log('Button clicked:', this.querySelector('p').textContent);
+                });
+            });
+            
+            // Handle window resize
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function() {
+                    // Adjust any elements that need recalculation on resize
+                    if (window.innerWidth < 768) {
+                        // Mobile adjustments
+                        document.querySelectorAll('.hexagon').forEach(hex => {
+                            hex.style.transform = '';
+                        });
+                    }
+                }, 250);
+            });
+            
+            // Ensure proper height on mobile devices with address bar
+            function setVH() {
+                let vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+            }
+            
+            setVH();
+            window.addEventListener('resize', setVH);
+            window.addEventListener('orientationchange', setVH);
+        });
+    </script>
+</body>
+</html>
