@@ -54,32 +54,29 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
             transition: all 0.3s ease;
         }
-        /* Mobile-specific styles */
+        /* Mobile menu styles */
         .mobile-menu {
             transition: transform 0.3s ease-in-out;
         }
         .mobile-menu-hidden {
             transform: translateX(100%);
         }
-        /* Fixed navbar animation - slides down from top */
+        /* Fixed navbar animation */
         @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
+            from { 
+                transform: translateY(-100%); 
+                opacity: 0; 
             }
-            to {
-                transform: translateY(0);
+            to { 
+                transform: translateY(0); 
+                opacity: 1; 
             }
         }
         .fixed-nav-hidden {
-            transform: translateY(-100%);
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease-in-out;
+            display: none;
         }
         .fixed-nav-visible {
-            transform: translateY(0);
-            opacity: 1;
-            visibility: visible;
+            display: block;
             animation: slideDown 0.3s ease-out;
         }
         /* Ensure social icons stay fixed */
@@ -101,7 +98,7 @@
         <div class="absolute inset-0 bg-gradient-to-r from-indigo-900/20 to-rose-900/20"></div>
         
         <!-- Original Navbar -->
-        <nav id="originalNav" class="relative z-20 bg-transparent transition-all duration-300">
+        <nav id="originalNav" class="relative z-20 bg-transparent" style="transition: opacity 0.3s ease, pointer-events 0.3s ease;">
             <div class="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
                 <div class="flex items-center justify-between">
                     <!-- Navigation Links -->
@@ -334,72 +331,53 @@
     </div>
     
     <script>
-        // Add smooth scrolling and interactive animations
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile Menu Toggle for Original Navbar
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menus for Original Navbar
+            const mobileMenu = document.getElementById('mobileMenu');
             const mobileMenuButton = document.getElementById('mobileMenuButton');
             const closeMenuButton = document.getElementById('closeMenuButton');
-            const mobileMenu = document.getElementById('mobileMenu');
-
-            if (mobileMenuButton && closeMenuButton && mobileMenu) {
-                mobileMenuButton.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('mobile-menu-hidden');
-                });
-
-                closeMenuButton.addEventListener('click', () => {
-                    mobileMenu.classList.add('mobile-menu-hidden');
-                });
+            
+            if (mobileMenuButton) {
+                mobileMenuButton.onclick = () => mobileMenu.classList.toggle('mobile-menu-hidden');
+            }
+            if (closeMenuButton) {
+                closeMenuButton.onclick = () => mobileMenu.classList.add('mobile-menu-hidden');
             }
 
-            // Mobile Menu Toggle for Fixed Navbar
+            // Mobile menus for Fixed Navbar
+            const fixedMobileMenu = document.getElementById('fixedMobileMenu');
             const fixedMobileMenuButton = document.getElementById('fixedMobileMenuButton');
             const fixedCloseMenuButton = document.getElementById('fixedCloseMenuButton');
-            const fixedMobileMenu = document.getElementById('fixedMobileMenu');
-
-            if (fixedMobileMenuButton && fixedCloseMenuButton && fixedMobileMenu) {
-                fixedMobileMenuButton.addEventListener('click', () => {
-                    fixedMobileMenu.classList.toggle('mobile-menu-hidden');
-                });
-
-                fixedCloseMenuButton.addEventListener('click', () => {
-                    fixedMobileMenu.classList.add('mobile-menu-hidden');
-                });
+            
+            if (fixedMobileMenuButton) {
+                fixedMobileMenuButton.onclick = () => fixedMobileMenu.classList.toggle('mobile-menu-hidden');
+            }
+            if (fixedCloseMenuButton) {
+                fixedCloseMenuButton.onclick = () => fixedMobileMenu.classList.add('mobile-menu-hidden');
             }
 
-            // Improved Navbar Scroll Behavior
-            const originalNav = document.getElementById('originalNav');
+            // Navbar scroll logic
             const fixedNav = document.getElementById('fixedNav');
-            let lastScrollTop = 0;
-            let scrollThreshold = 100; // Adjust this value to control when the fixed nav appears
-
+            const originalNav = document.getElementById('originalNav');
+            
             window.addEventListener('scroll', () => {
-                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-                
-                if (scrollTop > scrollThreshold) {
-                    // Show fixed navbar with slide down animation
+                if (window.scrollY > 100) {
+                    fixedNav.classList.remove('fixed-nav-hidden');
+                    fixedNav.classList.add('fixed-nav-visible');
+                    // Fade out original nav
                     if (originalNav) {
                         originalNav.style.opacity = '0';
                         originalNav.style.pointerEvents = 'none';
-                        originalNav.style.transition = 'opacity 0.3s ease';
-                    }
-                    if (fixedNav) {
-                        fixedNav.classList.remove('fixed-nav-hidden');
-                        fixedNav.classList.add('fixed-nav-visible');
                     }
                 } else {
-                    // Hide fixed navbar and show original
+                    fixedNav.classList.remove('fixed-nav-visible');
+                    fixedNav.classList.add('fixed-nav-hidden');
+                    // Fade in original nav
                     if (originalNav) {
                         originalNav.style.opacity = '1';
                         originalNav.style.pointerEvents = 'auto';
-                        originalNav.style.transition = 'opacity 0.3s ease';
-                    }
-                    if (fixedNav) {
-                        fixedNav.classList.remove('fixed-nav-visible');
-                        fixedNav.classList.add('fixed-nav-hidden');
                     }
                 }
-                
-                lastScrollTop = scrollTop;
             });
 
             // Parallax effect for background (subtle)
@@ -427,20 +405,11 @@
             const ctaButtons = document.querySelectorAll('.group.cursor-pointer');
             ctaButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const buttonText = this.querySelector('p:last-child').textContent;
+                    const buttonText = this.querySelector('p:last-child')?.textContent;
                     console.log('Button clicked:', buttonText);
                     // Add your navigation logic here
                 });
             });
-
-            // Ensure social icons maintain their position
-            const socialSidebar = document.querySelector('.social-sidebar');
-            if (socialSidebar) {
-                // Re-calculate position on resize
-                window.addEventListener('resize', () => {
-                    socialSidebar.style.right = window.innerWidth < 640 ? '1rem' : '1.5rem';
-                });
-            }
         });
     </script>
 </body>
