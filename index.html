@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guiding Your Journey Home</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .hexagon {
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+        }
+        .logo-hexagon {
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            border: 2px solid white;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .slide-in-right {
+            animation: slideInRight 1s ease-out 0.3s both;
+        }
+        .font-signature {
+            font-family: 'Brush Script MT', cursive;
+        }
+        .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        /* Mobile menu styles */
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+        .mobile-menu-hidden {
+            transform: translateX(100%);
+        }
+        /* Fixed navbar animation */
+        @keyframes slideDown {
+            from { 
+                transform: translateY(-100%); 
+                opacity: 0; 
+            }
+            to { 
+                transform: translateY(0); 
+                opacity: 1; 
+            }
+        }
+        .fixed-nav-hidden {
+            display: none;
+        }
+        .fixed-nav-visible {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+        /* Ensure social icons stay fixed */
+        .social-sidebar {
+            position: fixed;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 30;
+        }
+    </style>
+</head>
+<body class="overflow-x-hidden">
+    <!-- Hero Section Container -->
+    <div class="relative min-h-screen bg-cover bg-center bg-no-repeat overflow-hidden" style="background-image: url('images/hp-slide.jpg');">
+        
+        <!-- Animated Background Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-br from-black/60 via-transparent to-black/40"></div>
+        <div class="absolute inset-0 bg-gradient-to-r from-indigo-900/20 to-rose-900/20"></div>
+        
+        <!-- Original Navbar -->
+        <nav id="originalNav" class="relative z-20 bg-transparent" style="transition: opacity 0.3s ease, pointer-events 0.3s ease;">
+            <div class="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
+                <div class="flex items-center justify-between">
+                    <!-- Navigation Links -->
+                    <div class="hidden lg:flex items-center space-x-8">
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-sm tracking-wider relative group">
+                            PROPERTIES
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-300 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-sm tracking-wider relative group">
+                            BUYING
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-300 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-sm tracking-wider relative group">
+                            SELLING
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-300 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-sm tracking-wider relative group">
+                            OUR COMPANY
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-300 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-sm tracking-wider relative group">
+                            RESOURCES
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-300 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-white hover:text-rose-300 transition duration-300 font-medium text-sm tracking-wider relative group">
+                            CONTACT US
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-300 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <div class="lg:hidden">
+                        <button id="mobileMenuButton" class="text-white text-2xl">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Sign Up Button -->
+                    <button class="bg-rose-400/90 hover:bg-rose-500 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition duration-300 text-xs sm:text-sm tracking-wider shadow-lg hover:shadow-xl transform hover:scale-105">
+                        SIGN UP
+                    </button>
+                </div>
+                
+                <!-- Mobile Menu -->
+                <div id="mobileMenu" class="lg:hidden mobile-menu mobile-menu-hidden fixed top-0 right-0 h-full w-64 bg-black/90 backdrop-blur-md z-30 flex flex-col items-center justify-center space-y-6">
+                    <button id="closeMenuButton" class="absolute top-4 right-4 text-white text-2xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <a href="#" class="text-white hover:text-rose-300 text-lg font-medium tracking-wider">PROPERTIES</a>
+                    <a href="#" class="text-white hover:text-rose-300 text-lg font-medium tracking-wider">BUYING</a>
+                    <a href="#" class="text-white hover:text-rose-300 text-lg font-medium tracking-wider">SELLING</a>
+                    <a href="#" class="text-white hover:text-rose-300 text-lg font-medium tracking-wider">OUR COMPANY</a>
+                    <a href="#" class="text-white hover:text-rose-300 text-lg font-medium tracking-wider">RESOURCES</a>
+                    <a href="#" class="text-white hover:text-rose-300 text-lg font-medium tracking-wider">CONTACT US</a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Fixed Navbar (Appears on Scroll) -->
+        <nav id="fixedNav" class="fixed top-0 left-0 w-full bg-white shadow-lg z-40 fixed-nav-hidden">
+            <div class="container mx-auto px-4 sm:px-6 py-4">
+                <div class="flex items-center justify-between">
+                    <!-- Navigation Links -->
+                    <div class="hidden lg:flex items-center space-x-8">
+                        <a href="#" class="text-gray-800 hover:text-rose-500 transition duration-300 font-medium text-sm tracking-wider relative group">
+                            PROPERTIES
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-gray-800 hover:text-rose-500 transition duration-300 font-medium text-sm tracking-wider relative group">
+                            BUYING
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-gray-800 hover:text-rose-500 transition duration-300 font-medium text-sm tracking-wider relative group">
+                            SELLING
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-gray-800 hover:text-rose-500 transition duration-300 font-medium text-sm tracking-wider relative group">
+                            OUR COMPANY
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-gray-800 hover:text-rose-500 transition duration-300 font-medium text-sm tracking-wider relative group">
+                            RESOURCES
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#" class="text-gray-800 hover:text-rose-500 transition duration-300 font-medium text-sm tracking-wider relative group">
+                            CONTACT US
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-rose-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                    </div>
+                    
+                    <!-- Mobile Menu Button -->
+                    <div class="lg:hidden">
+                        <button id="fixedMobileMenuButton" class="text-gray-800 text-2xl">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Sign Up Button -->
+                    <button class="bg-rose-500 hover:bg-rose-600 text-white px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium transition duration-300 text-xs sm:text-sm tracking-wider shadow-lg hover:shadow-xl transform hover:scale-105">
+                        SIGN UP
+                    </button>
+                </div>
+                
+                <!-- Fixed Navbar Mobile Menu -->
+                <div id="fixedMobileMenu" class="lg:hidden mobile-menu mobile-menu-hidden fixed top-0 right-0 h-full w-64 bg-white shadow-lg z-50 flex flex-col items-center justify-center space-y-6">
+                    <button id="fixedCloseMenuButton" class="absolute top-4 right-4 text-gray-800 text-2xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <a href="#" class="text-gray-800 hover:text-rose-500 text-lg font-medium tracking-wider">PROPERTIES</a>
+                    <a href="#" class="text-gray-800 hover:text-rose-500 text-lg font-medium tracking-wider">BUYING</a>
+                    <a href="#" class="text-gray-800 hover:text-rose-500 text-lg font-medium tracking-wider">SELLING</a>
+                    <a href="#" class="text-gray-800 hover:text-rose-500 text-lg font-medium tracking-wider">OUR COMPANY</a>
+                    <a href="#" class="text-gray-800 hover:text-rose-500 text-lg font-medium tracking-wider">RESOURCES</a>
+                    <a href="#" class="text-gray-800 hover:text-rose-500 text-lg font-medium tracking-wider">CONTACT US</a>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Hero Content -->
+        <div class="relative z-10 container mx-auto px-4 sm:px-6 flex items-center min-h-[calc(100vh-80px)]">
+            <div class="grid grid-cols-12 gap-4 sm:gap-8 items-end w-full">
+                
+                <!-- Left Side - Text Content and Logo -->
+                <div class="col-span-12 lg:col-span-6 text-white space-y-6 sm:space-y-8 pb-10 sm:pb-20 fade-in-up">
+                    
+                    <!-- Tagline -->
+                    <div class="space-y-3 sm:space-y-4">
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-widest leading-tight">
+                            GUIDING YOUR<br>
+                            <span class="text-rose-300">JOURNEY</span> HOME
+                        </h2>
+                        <p class="text-sm sm:text-base text-gray-200 max-w-xl leading-relaxed">
+                            Experience luxury real estate with personalized service and unmatched expertise in finding your perfect home.
+                        </p>
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex flex-wrap gap-4 sm:gap-6 pt-8 sm:pt-12">
+                        <!-- Search for My Home -->
+                        <div class="text-center group cursor-pointer transform hover:scale-110 transition-all duration-300">
+                            <div class="hexagon bg-transparent border-2 border-white w-20 sm:w-24 h-20 sm:h-24 flex items-center justify-center hover:bg-rose-500/30 hover:border-rose-300 transition duration-300 hover-glow">
+                                <i class="fas fa-search text-white text-xl sm:text-2xl group-hover:text-rose-200"></i>
+                            </div>
+                            <p class="text-xs mt-2 sm:mt-3 uppercase tracking-wider">SEARCH FOR</p>
+                            <p class="text-xs uppercase tracking-wider font-bold text-rose-300">MY HOME</p>
+                        </div>
+                        
+                        <!-- Sell My Home -->
+                        <div class="text-center group cursor-pointer transform hover:scale-110 transition-all duration-300">
+                            <div class="hexagon bg-transparent border-2 border-white w-20 sm:w-24 h-20 sm:h-24 flex items-center justify-center hover:bg-rose-500/30 hover:border-rose-300 transition duration-300 hover-glow">
+                                <i class="fas fa-home text-white text-xl sm:text-2xl group-hover:text-rose-200"></i>
+                            </div>
+                            <p class="text-xs mt-2 sm:mt-3 uppercase tracking-wider">SELL</p>
+                            <p class="text-xs uppercase tracking-wider font-bold text-rose-300">MY HOME</p>
+                        </div>
+                        
+                        <!-- Schedule a Call -->
+                        <div class="text-center group cursor-pointer transform hover:scale-110 transition-all duration-300">
+                            <div class="hexagon bg-transparent border-2 border-white w-20 sm:w-24 h-20 sm:h-24 flex items-center justify-center hover:bg-rose-500/30 hover:border-rose-300 transition duration-300 hover-glow">
+                                <i class="fas fa-phone text-white text-xl sm:text-2xl group-hover:text-rose-200"></i>
+                            </div>
+                            <p class="text-xs mt-2 sm:mt-3 uppercase tracking-wider">SCHEDULE</p>
+                            <p class="text-xs uppercase tracking-wider font-bold text-rose-300">A CALL</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Side - Agent Image and Name -->
+                <div class="col-span-12 lg:col-span-6 relative slide-in-right">
+                    <!-- Agent Image -->
+                    <div class="relative flex items-end justify-center lg:justify-end">
+                        <div class="relative w-full">
+                            <img 
+                                src="images/shannel_hero.png" 
+                                alt="Egypt Sherrod" 
+                                class="w-full max-w-md sm:max-w-lg lg:max-w-3xl object-contain relative z-10 mx-auto"
+                                style="height: auto; max-height: 600px;"
+                            >
+                            <!-- Decorative Background Elements -->
+                            <div class="absolute top-10 sm:top-16 right-4 sm:right-8 w-20 sm:w-24 h-20 sm:h-24 bg-rose-500/20 rounded-full blur-xl hidden lg:block"></div>
+                            <div class="absolute bottom-20 sm:bottom-32 left-4 sm:left-8 w-16 sm:w-20 h-16 sm:h-20 bg-indigo-500/20 rounded-full blur-xl hidden lg:block"></div>
+                            
+                            <!-- Agent Name Signature -->
+                            <div class="absolute bottom-10 sm:bottom-16 left-4 sm:left-8 text-white z-20">
+                                <p class="text-4xl sm:text-5xl lg:text-6xl font-signature italic text-rose-300 drop-shadow-lg">Shannel</p>
+                                <p class="text-3xl sm:text-4xl lg:text-5xl font-signature italic ml-6 sm:ml-8 text-white drop-shadow-lg">Escoffery</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Social Media Icons - Fixed on Right Side, Classic Styling -->
+        <div class="social-sidebar flex flex-col space-y-3 sm:space-y-4">
+            <a href="#" class="text-white hover:text-rose-500 transition-all duration-300 p-2 sm:p-3">
+                <i class="fab fa-facebook-f text-base sm:text-lg"></i>
+            </a>
+            <a href="#" class="text-white hover:text-rose-500 transition-all duration-300 p-2 sm:p-3">
+                <i class="fab fa-twitter text-base sm:text-lg"></i>
+            </a>
+            <a href="#" class="text-white hover:text-rose-500 transition-all duration-300 p-2 sm:p-3">
+                <i class="fab fa-linkedin-in text-base sm:text-lg"></i>
+            </a>
+            <a href="#" class="text-white hover:text-rose-500 transition-all duration-300 p-2 sm:p-3">
+                <i class="fab fa-instagram text-base sm:text-lg"></i>
+            </a>
+        </div>
+        
+        <!-- Decorative Elements -->
+        <div class="absolute top-10 left-4 w-2 h-2 bg-rose-300 rounded-full opacity-60 animate-ping hidden sm:block"></div>
+        <div class="absolute top-20 left-10 w-1 h-1 bg-white rounded-full opacity-40 hidden sm:block"></div>
+        <div class="absolute bottom-40 left-16 w-3 h-3 border border-white/30 rotate-45 hidden sm:block"></div>
+        <div class="absolute top-1/3 right-1/4 w-1 h-1 bg-rose-300 rounded-full opacity-60 hidden lg:block"></div>
+        
+        <!-- Bottom Gradient -->
+        <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black/60 to-transparent"></div>
+        
+        <!-- Animated Particles -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-1 h-1 bg-white/20 rounded-full animate-pulse hidden sm:block"></div>
+            <div class="absolute top-3/4 right-1/3 w-2 h-2 bg-rose-300/30 rounded-full animate-bounce hidden sm:block" style="animation-delay: 1s;"></div>
+            <div class="absolute bottom-1/3 left-1/2 w-1 h-1 bg-indigo-300/40 rounded-full animate-ping hidden sm:block" style="animation-delay: 2s;"></div>
+        </div>
+    </div>
+    
+    <!-- Additional content section for testing scroll -->
+    <div style="height:100vh; background-color:black;">
+        
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menus for Original Navbar
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuButton = document.getElementById('mobileMenuButton');
+            const closeMenuButton = document.getElementById('closeMenuButton');
+            
+            if (mobileMenuButton) {
+                mobileMenuButton.onclick = () => mobileMenu.classList.toggle('mobile-menu-hidden');
+            }
+            if (closeMenuButton) {
+                closeMenuButton.onclick = () => mobileMenu.classList.add('mobile-menu-hidden');
+            }
+
+            // Mobile menus for Fixed Navbar
+            const fixedMobileMenu = document.getElementById('fixedMobileMenu');
+            const fixedMobileMenuButton = document.getElementById('fixedMobileMenuButton');
+            const fixedCloseMenuButton = document.getElementById('fixedCloseMenuButton');
+            
+            if (fixedMobileMenuButton) {
+                fixedMobileMenuButton.onclick = () => fixedMobileMenu.classList.toggle('mobile-menu-hidden');
+            }
+            if (fixedCloseMenuButton) {
+                fixedCloseMenuButton.onclick = () => fixedMobileMenu.classList.add('mobile-menu-hidden');
+            }
+
+            // Navbar scroll logic
+            const fixedNav = document.getElementById('fixedNav');
+            const originalNav = document.getElementById('originalNav');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    fixedNav.classList.remove('fixed-nav-hidden');
+                    fixedNav.classList.add('fixed-nav-visible');
+                    // Fade out original nav
+                    if (originalNav) {
+                        originalNav.style.opacity = '0';
+                        originalNav.style.pointerEvents = 'none';
+                    }
+                } else {
+                    fixedNav.classList.remove('fixed-nav-visible');
+                    fixedNav.classList.add('fixed-nav-hidden');
+                    // Fade in original nav
+                    if (originalNav) {
+                        originalNav.style.opacity = '1';
+                        originalNav.style.pointerEvents = 'auto';
+                    }
+                }
+            });
+
+            // Parallax effect for background (subtle)
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const parallax = document.querySelector('.bg-cover');
+                if (parallax && scrolled < window.innerHeight) {
+                    parallax.style.transform = `translateY(${scrolled * 0.3}px)`;
+                }
+            });
+
+            // Hover effects for hexagon buttons
+            const hexButtons = document.querySelectorAll('.hexagon');
+            hexButtons.forEach(button => {
+                button.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.1) rotate(5deg)';
+                });
+                
+                button.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1) rotate(0deg)';
+                });
+            });
+
+            // Add click handlers for CTA buttons
+            const ctaButtons = document.querySelectorAll('.group.cursor-pointer');
+            ctaButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const buttonText = this.querySelector('p:last-child')?.textContent;
+                    console.log('Button clicked:', buttonText);
+                    // Add your navigation logic here
+                });
+            });
+        });
+    </script>
+</body>
+</html>
