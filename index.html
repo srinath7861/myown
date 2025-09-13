@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guiding Your Journey Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+  .hexagon {
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+        }
+        .logo-hexagon {
+            clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+            border: 2px solid white;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in-up {
+            animation: fadeInUp 0.8s ease-out;
+        }
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        .slide-in-right {
+            animation: slideInRight 1s ease-out 0.3s both;
+        }
+        .font-signature {
+            font-family: 'Brush Script MT', cursive;
+        }
+        .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+    .mobile-menu {
+      transition: transform 0.3s ease-in-out;
+    }
+    .mobile-menu-hidden {
+      transform: translateX(100%);
+    }
+    /* Fixed navbar animation */
+    @keyframes slideDown {
+      from { transform: translateY(-100%); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .fixed-nav-hidden {
+      display: none;
+    }
+    .fixed-nav-visible {
+      display: block;
+      animation: slideDown 0.3s ease-out;
+    }
+    
+    /* Service Box Animations */
+    .service-box {
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .service-box:hover {
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+    }
+    
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+    
+    .service-box:hover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+      );
+      background-size: 200% 100%;
+      animation: shimmer 1.5s infinite;
+      pointer-events: none;
+    }
+    
+    /* Staggered animation for mini boxes */
+    .mini-service-box {
+      animation: fadeInUp 0.6s ease-out forwards;
+      opacity: 0;
+    }
+    
+    .mini-service-box:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+    
+    .mini-service-box:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    
+    .mini-service-box:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+    
+    .mini-service-box:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+  </style>
+</head>
+<body class="overflow-x-hidden bg-gray-100">
+
+  <!-- Hero Section -->
+  <div class="relative min-h-screen bg-cover bg-center" style="background-image: url('images/hp-slide.jpg');">
+    <div class="absolute inset-0 bg-black/50"></div>
+
+    <!-- Original Navbar -->
+    <nav id="originalNav" class="relative z-20 bg-transparent">
+      <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+        <div class="hidden lg:flex space-x-8 text-white font-medium">
+          <a href="#" class="hover:text-[#be9f98]">PROPERTIES</a>
+          <a href="#" class="hover:text-[#be9f98]">BUYING</a>
+          <a href="#" class="hover:text-[#be9f98]">SELLING</a>
+          <a href="#" class="hover:text-[#be9f98]">OUR COMPANY</a>
+          <a href="#" class="hover:text-[#be9f98]">RESOURCES</a>
+          <a href="#" class="hover:text-[#be9f98]">CONTACT US</a>
+        </div>
+        <!-- Mobile button -->
+        <button id="mobileMenuButton" class="lg:hidden text-white text-2xl"><i class="fas fa-bars"></i></button>
+        <!-- Sign up -->
+        <button class="bg-[#be9f98] text-white px-4 py-2 rounded-full">SIGN UP</button>
+      </div>
+      <!-- Mobile Menu -->
+      <div id="mobileMenu" class="mobile-menu mobile-menu-hidden fixed top-0 right-0 h-full w-64 bg-black/90 z-30 flex flex-col items-center justify-center space-y-6">
+        <button id="closeMenuButton" class="absolute top-4 right-4 text-white text-2xl"><i class="fas fa-times"></i></button>
+        <a href="#" class="text-white">PROPERTIES</a>
+        <a href="#" class="text-white">BUYING</a>
+        <a href="#" class="text-white">SELLING</a>
+        <a href="#" class="text-white">OUR COMPANY</a>
+        <a href="#" class="text-white">RESOURCES</a>
+        <a href="#" class="text-white">CONTACT US</a>
+      </div>
+    </nav>
+
+    <!-- Fixed Navbar -->
+    <nav id="fixedNav" class="fixed-nav-hidden fixed top-0 left-0 w-full bg-white shadow z-40">
+      <div class="container mx-auto px-4 py-4 flex items-center justify-between h-16">
+          <div class="hidden lg:flex items-center space-x-8 text-gray-800 font-medium">
+            <img src="images/logo.png" style="height:50px;" alt="Logo">
+            <a href="#" class="hover:text-[#be9f98]">PROPERTIES</a>
+            <a href="#" class="hover:text-[#be9f98]">BUYING</a>
+            <a href="#" class="hover:text-[#be9f98]">SELLING</a>
+            <a href="#" class="hover:text-[#be9f98]">OUR COMPANY</a>
+            <a href="#" class="hover:text-[#be9f98]">RESOURCES</a>
+            <a href="#" class="hover:text-[#be9f98]">CONTACT US</a>
+          </div>
+          <!-- Mobile button -->
+          <button id="fixedMobileMenuButton" class="lg:hidden text-gray-800 text-2xl flex items-center"><i class="fas fa-bars"></i></button>
+          <!-- Sign up -->
+          <button class="bg-[#be9f98] text-white px-4 py-2 rounded-full flex items-center">SIGN UP</button>
+        </div>
+      <!-- Mobile Menu -->
+      <div id="fixedMobileMenu" class="mobile-menu mobile-menu-hidden fixed top-0 right-0 h-full w-64 bg-white z-50 flex flex-col items-center justify-center space-y-6">
+        <button id="fixedCloseMenuButton" class="absolute top-4 right-4 text-gray-800 text-2xl"><i class="fas fa-times"></i></button>
+        <a href="#" class="text-gray-800">PROPERTIES</a>
+        <a href="#" class="text-gray-800">BUYING</a>
+        <a href="#" class="text-gray-800">SELLING</a>
+        <a href="#" class="text-gray-800">OUR COMPANY</a>
+        <a href="#" class="text-gray-800">RESOURCES</a>
+        <a href="#" class="text-gray-800">CONTACT US</a>
+      </div>
+    </nav>
+
+    <!-- Hero Content -->
+        <div class="relative z-10 container mx-auto px-4 sm:px-6 flex items-center min-h-[calc(100vh-80px)]">
+            <div class="grid grid-cols-12 gap-4 sm:gap-8 items-end w-full">
+                
+                <!-- Left Side - Text Content and Logo -->
+<div class="col-span-12 lg:col-span-6 text-white space-y-8 sm:space-y-12 pb-12 sm:pb-24 fade-in-up">
+    <!-- Tagline Section -->
+    <div class="space-y-4 sm:space-y-6">
+        <h3 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-wide leading-snug">
+            Discover <br>
+            <span class="text-[#be9f98] font-semibold">ELITE</span> real estate opportunities
+        </h3>
+        <p class="text-sm sm:text-base text-gray-200 max-w-lg leading-relaxed">
+            Unlock luxury living with tailored guidance and expertise in finding your dream home.
+        </p>
+    </div>
+
+    <!-- Action Buttons Section -->
+    <div class="flex flex-wrap gap-5 sm:gap-8">
+    <!-- Search for My Home -->
+    <div class="text-center group cursor-pointer transform hover:scale-105 transition-all duration-300">
+        <div class="hexagon bg-transparent border-2 border-white w-20 sm:w-24 h-20 sm:h-24 flex flex-col items-center justify-center hover:bg-[#be9f98]/20 hover:border-[#be9f98] transition duration-300 hover-glow">
+            <i class="fas fa-search text-white text-xl sm:text-2xl group-hover:text-[#be9f98]"></i>
+            <p class="text-xs sm:text-sm uppercase tracking-widest font-medium">Find</p>
+            <p class="text-xs sm:text-sm uppercase tracking-widest font-bold text-[#be9f98]">My Home</p>
+        </div>
+    </div>
+
+    <!-- Sell My Home -->
+    <div class="text-center group cursor-pointer transform hover:scale-105 transition-all duration-300">
+        <div class="hexagon bg-transparent border-2 border-white w-20 sm:w-24 h-20 sm:h-24 flex flex-col items-center justify-center hover:bg-[#be9f98]/20 hover:border-[#be9f98] transition duration-300 hover-glow">
+            <i class="fas fa-home text-white text-xl sm:text-2xl group-hover:text-[#be9f98]"></i>
+            <p class="text-xs sm:text-sm uppercase tracking-widest font-medium">Sell</p>
+            <p class="text-xs sm:text-sm uppercase tracking-widest font-bold text-[#be9f98]">My Home</p>
+        </div>
+    </div>
+
+    <!-- Schedule a Call -->
+    <div class="text-center group cursor-pointer transform hover:scale-105 transition-all duration-300">
+        <div class="hexagon bg-transparent border-2 border-white w-20 sm:w-24 h-20 sm:h-24 flex flex-col items-center justify-center hover:bg-[#be9f98]/20 hover:border-[#be9f98] transition duration-300 hover-glow">
+            <i class="fas fa-phone text-white text-xl sm:text-2xl group-hover:text-[#be9f98]"></i>
+            <p class="text-xs sm:text-sm uppercase tracking-widest font-medium">Book</p>
+            <p class="text-xs sm:text-sm uppercase tracking-widest font-bold text-[#be9f98]">A Call</p>
+        </div>
+    </div>
+    <!-- Commercial RE -->
+    <div class="text-center group cursor-pointer transform hover:scale-105 transition-all duration-300">
+        <div class="hexagon bg-transparent border-2 border-white w-20 sm:w-24 h-20 sm:h-24 flex flex-col items-center justify-center hover:bg-[#be9f98]/20 hover:border-[#be9f98] transition duration-300 hover-glow">
+            <i class="fas fa-home text-white text-xl sm:text-2xl group-hover:text-[#be9f98]"></i>
+<p class="text-[10px] uppercase tracking-widest font-medium">Commercial</p>
+            <p class="text-xs sm:text-sm uppercase tracking-widest font-bold text-[#be9f98]">RE</p>
+        </div>
+    </div>
+</div>
+</div>                
+                <!-- Right Side - Agent Image and Name -->
+                <div class="col-span-12 lg:col-span-6 relative slide-in-right">
+                    <!-- Agent Image -->
+                    <div class="relative flex items-end justify-center lg:justify-end">
+                        <div class="relative w-full">
+                            <img 
+                                src="images/shannel_hero.png" 
+                                alt="Egypt Sherrod" 
+                                class="w-full max-w-md sm:max-w-lg lg:max-w-3xl object-contain relative z-10 mx-auto"
+                                style="height: auto; max-height: 600px;"
+                            >
+                            <!-- Decorative Background Elements -->
+                            <div class="absolute top-10 sm:top-16 right-4 sm:right-8 w-20 sm:w-24 h-20 sm:h-24 bg-[#be9f98]/20 rounded-full blur-xl hidden lg:block"></div>
+                            <div class="absolute bottom-20 sm:bottom-32 left-4 sm:left-8 w-16 sm:w-20 h-16 sm:h-20 bg-indigo-500/20 rounded-full blur-xl hidden lg:block"></div>
+                            
+                            <!-- Agent Name Signature -->
+                            <div class="absolute bottom-10 sm:bottom-16 left-4 sm:left-8 text-white z-20">
+                                <p class="text-4xl sm:text-5xl lg:text-6xl font-signature italic text-[#be9f98] drop-shadow-lg">Shannel</p>
+                                <p class="text-3xl sm:text-4xl lg:text-5xl font-signature italic ml-6 sm:ml-8 text-white drop-shadow-lg">Escoffery</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Social Media Icons - Fixed on Right Side, Classic Styling -->
+        <div class="fixed right-4 sm:right-6 top-1/2 transform -translate-y-1/2 z-30 flex flex-col space-y-3 sm:space-y-4">
+            <a href="#" class="text-white hover:text-[#be9f98] transition-all duration-300 p-2 sm:p-3">
+                <i class="fab fa-facebook-f text-base sm:text-lg"></i>
+            </a>
+            <a href="#" class="text-white hover:text-[#be9f98] transition-all duration-300 p-2 sm:p-3">
+                <i class="fab fa-twitter text-base sm:text-lg"></i>
+            </a>
+            <a href="#" class="text-white hover:text-[#be9f98] transition-all duration-300 p-2 sm:p-3">
+                <i class="fab fa-linkedin-in text-base sm:text-lg"></i>
+            </a>
+            <a href="#" class="text-white hover:text-[#be9f98] transition-all duration-300 p-2 sm:p-3">
+                <i class="fab fa-instagram text-base sm:text-lg"></i>
+            </a>
+        </div>
+        
+        <!-- Decorative Elements -->
+        <div class="absolute top-10 left-4 w-2 h-2 bg-[#be9f98] rounded-full opacity-60 animate-ping hidden sm:block"></div>
+        <div class="absolute top-20 left-10 w-1 h-1 bg-white rounded-full opacity-40 hidden sm:block"></div>
+        <div class="absolute bottom-40 left-16 w-3 h-3 border border-white/30 rotate-45 hidden sm:block"></div>
+        <div class="absolute top-1/3 right-1/4 w-1 h-1 bg-[#be9f98] rounded-full opacity-60 hidden lg:block"></div>
+        
+        <!-- Bottom Gradient -->
+        <div class="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-black/60 to-transparent"></div>
+        
+        <!-- Animated Particles -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-1 h-1 bg-white/20 rounded-full animate-pulse hidden sm:block"></div>
+            <div class="absolute top-3/4 right-1/3 w-2 h-2 bg-[#be9f98]/30 rounded-full animate-bounce hidden sm:block" style="animation-delay: 1s;"></div>
+            <div class="absolute bottom-1/3 left-1/2 w-1 h-1 bg-indigo-300/40 rounded-full animate-ping hidden sm:block" style="animation-delay: 2s;"></div>
+        </div>
+  </div>
+  
+  <!-- New Section -->
+  <div class="relative py-16 bg-gray-100 overflow-hidden">
+    <div class="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <!-- Left Side: Welcome Text -->
+        <div class="text-left flex flex-col items-start">
+          <p class="text-lg text-gray-600 font-light mb-2 uppercase tracking-wide">Connecting you to premier</p>
+          <div class="flex items-center space-x-4">
+            <img src="images/logo.png" alt="Indigo Road Realty Logo" class="h-16 md:h-20 lg:h-24 object-contain">
+            <h2 class="text-5xl md:text-6xl font-bold text-gray-800 leading-tight">
+              Real Estate <br>
+              <span class="text-[#be9f98]">Opportunities</span>
+            </h2>
+          </div>
+        </div>
+
+        <!-- Right Side: Descriptive Text -->
+        <div class="text-gray-700 space-y-6 leading-relaxed text-lg">
+          <p class="font-semibold text-xl md:text-2xl">
+            United Realty Group powered by Shannel Escoffery: Where Expertise Meets Opportunity.
+          </p>
+          <p>
+            Homes that inspire. Spaces that perform. From your first address to your next big investment, Shannel Escoffery delivers precision, power, and results—residential or commercial, we make every deal a win. Success Is Our Signature!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services Section with Interactive Boxes -->
+  <div class="relative py-20 bg-gradient-to-b from-gray-100 to-white overflow-hidden">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          Explore Our <span class="text-[#be9f98]">Services</span>
+        </h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Discover comprehensive real estate solutions tailored to your needs
+        </p>
+      </div>
+
+      <!-- Interactive Boxes Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        
+        <!-- Communities Box -->
+        <div class="service-box group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer transform transition-all duration-500 hover:scale-105 hover:-translate-y-2">
+          <div class="relative h-80 md:h-96">
+            <!-- Background Image -->
+            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800" alt="Communities" class="w-full h-full object-cover">
+            
+            <!-- Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+            
+            <!-- Hover Overlay -->
+            <div class="absolute inset-0 bg-[#be9f98]/0 group-hover:bg-[#be9f98]/20 transition-all duration-500"></div>
+            
+            <!-- Logo/Icon -->
+            <div class="absolute top-8 left-1/2 transform -translate-x-1/2 transition-all duration-500 group-hover:scale-110">
+              <div class="logo-hexagon w-20 h-20 bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                <span class="text-white text-3xl font-bold">R</span>
+              </div>
+            </div>
+            
+            <!-- Text Content -->
+            <div class="absolute bottom-0 left-0 right-0 p-8 transform transition-all duration-500 group-hover:translate-y-[-10px]">
+              <h3 class="text-3xl font-bold text-white mb-2 tracking-wider">COMMUNITIES</h3>
+              <p class="text-white/90 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                Explore vibrant neighborhoods and find your perfect community
+              </p>
+              
+              <!-- Arrow Icon -->
+              <div class="mt-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200">
+                <span class="inline-flex items-center text-white">
+                  Learn More <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform duration-300"></i>
+                </span>
+              </div>
+            </div>
+            
+            <!-- Animated Border -->
+            <div class="absolute inset-0 border-2 border-white/0 group-hover:border-white/30 rounded-2xl transition-all duration-500"></div>
+          </div>
+        </div>
+
+        <!-- Buying Box -->
+        <div class="service-box group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer transform transition-all duration-500 hover:scale-105 hover:-translate-y-2">
+          <div class="relative h-80 md:h-96">
+            <!-- Background Image -->
+            <img src="https://images.unsplash.com/photo-1560520653-9e0e4c89eb11?w=800" alt="Buying" class="w-full h-full object-cover">
+            
+            <!-- Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+            
+            <!-- Hover Overlay -->
+            <div class="absolute inset-0 bg-[#be9f98]/0 group-hover:bg-[#be9f98]/20 transition-all duration-500"></div>
+            
+            <!-- Text Content -->
+            <div class="absolute bottom-0 left-0 right-0 p-8 transform transition-all duration-500 group-hover:translate-y-[-10px]">
+              <h3 class="text-3xl font-bold text-white mb-2 tracking-wider">BUYING</h3>
+              <p class="text-white/90 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                Find your dream home with our expert guidance and support
+              </p>
+              
+              <!-- Arrow Icon -->
+              <div class="mt-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200">
+                <span class="inline-flex items-center text-white">
+                  Start Your Search <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform duration-300"></i>
+                </span>
+              </div>
+            </div>
+            
+            <!-- Animated Border -->
+            <div class="absolute inset-0 border-2 border-white/0 group-hover:border-white/30 rounded-2xl transition-all duration-500"></div>
+          </div>
+        </div>
+
+        <!-- Selling Box -->
+        <div class="service-box group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer transform transition-all duration-500 hover:scale-105 hover:-translate-y-2">
+          <div class="relative h-80 md:h-96">
+            <!-- Background Image -->
+            <img src="https://images.unsplash.com/photo-1558036117-15d82a90b9b1?w=800" alt="Selling" class="w-full h-full object-cover">
+            
+            <!-- Gradient Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+            
+            <!-- Hover Overlay -->
+            <div class="absolute inset-0 bg-[#be9f98]/0 group-hover:bg-[#be9f98]/20 transition-all duration-500"></div>
+            
+            <!-- Text Content -->
+            <div class="absolute bottom-0 left-0 right-0 p-8 transform transition-all duration-500 group-hover:translate-y-[-10px]">
+              <h3 class="text-3xl font-bold text-white mb-2 tracking-wider">SELLING</h3>
+              <p class="text-white/90 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                Maximize your property value with our strategic marketing
+              </p>
+              
+              <!-- Arrow Icon -->
+              <div class="mt-4 opacity-0 group-hover:opacity-100 transition-all duration-500 delay-200">
+                <span class="inline-flex items-center text-white">
+                  Get Valuation <i class="fas fa-arrow-right ml-2 transform group-hover:translate-x-2 transition-transform duration-300"></i>
+                </span>
+              </div>
+            </div>
+            
+            <!-- Animated Border -->
+            <div class="absolute inset-0 border-2 border-white/0 group-hover:border-white/30 rounded-2xl transition-all duration-500"></div>
+          </div>
+        </div>
+        
+      </div>
+
+      <!-- Alternative Layout with Staggered Animation -->
+      <div class="mt-20">
+        <h3 class="text-2xl font-bold text-center text-gray-800 mb-12">More Ways We Can Help</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
+          
+          <!-- Mini Service Box 1 -->
+          <div class="mini-service-box group relative overflow-hidden rounded-xl bg-white shadow-md cursor-pointer transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <div class="relative h-48">
+              <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400" alt="Investment" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div class="absolute inset-0 bg-[#be9f98]/0 group-hover:bg-[#be9f98]/30 transition-all duration-300"></div>
+              <div class="absolute bottom-4 left-4 right-4">
+                <h4 class="text-xl font-bold text-white">Investment Properties</h4>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mini Service Box 2 -->
+          <div class="mini-service-box group relative overflow-hidden rounded-xl bg-white shadow-md cursor-pointer transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <div class="relative h-48">
+              <img src="https://images.unsplash.com/photo-1565538420870-da08ff96a207?w=400" alt="Luxury" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div class="absolute inset-0 bg-[#be9f98]/0 group-hover:bg-[#be9f98]/30 transition-all duration-300"></div>
+              <div class="absolute bottom-4 left-4 right-4">
+                <h4 class="text-xl font-bold text-white">Luxury Homes</h4>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mini Service Box 3 -->
+          <div class="mini-service-box group relative overflow-hidden rounded-xl bg-white shadow-md cursor-pointer transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <div class="relative h-48">
+              <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?w=400" alt="First Time" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div class="absolute inset-0 bg-[#be9f98]/0 group-hover:bg-[#be9f98]/30 transition-all duration-300"></div>
+              <div class="absolute bottom-4 left-4 right-4">
+                <h4 class="text-xl font-bold text-white">First-Time Buyers</h4>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mini Service Box 4 -->
+          <div class="mini-service-box group relative overflow-hidden rounded-xl bg-white shadow-md cursor-pointer transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
+            <div class="relative h-48">
+              <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400" alt="Commercial" class="w-full h-full object-cover">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              <div class="absolute inset-0 bg-[#be9f98]/0 group-hover:bg-[#be9f98]/30 transition-all duration-300"></div>
+              <div class="absolute bottom-4 left-4 right-4">
+                <h4 class="text-xl font-bold text-white">Commercial Real Estate</h4>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Filler content to enable scroll -->
+  <div style="height:150vh; background:#f7fafc;"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Mobile menus
+      const mobileMenu = document.getElementById('mobileMenu');
+      document.getElementById('mobileMenuButton').onclick = () => mobileMenu.classList.toggle('mobile-menu-hidden');
+      document.getElementById('closeMenuButton').onclick = () => mobileMenu.classList.add('mobile-menu-hidden');
+
+      const fixedMobileMenu = document.getElementById('fixedMobileMenu');
+      document.getElementById('fixedMobileMenuButton').onclick = () => fixedMobileMenu.classList.toggle('mobile-menu-hidden');
+      document.getElementById('fixedCloseMenuButton').onclick = () => fixedMobileMenu.classList.add('mobile-menu-hidden');
+
+      // Navbar scroll logic
+      const fixedNav = document.getElementById('fixedNav');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          fixedNav.classList.remove('fixed-nav-hidden');
+          fixedNav.classList.add('fixed-nav-visible');
+        } else {
+          fixedNav.classList.remove('fixed-nav-visible');
+          fixedNav.classList.add('fixed-nav-hidden');
+        }
+      });
+      
+      // Intersection Observer for mini service boxes animation
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      };
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.opacity = '1';
+          }
+        });
+      }, observerOptions);
+      
+      // Observe all mini service boxes
+      document.querySelectorAll('.mini-service-box').forEach(box => {
+        observer.observe(box);
+      });
+    });
+  </script>
+</body>
+</html>
